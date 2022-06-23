@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
+    <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" />
+    <button @click="clickgenerateRandomRecipes">Random</button>
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
     <RecipePreviewVisitedList v-else 
       title="Last Viewed Recipes"
@@ -27,6 +28,14 @@ export default {
     RecipePreviewList,
     RecipePreviewVisitedList
 
+  },
+
+  methods:
+  {
+    async clickgenerateRandomRecipes(){
+      
+       return this.$children[0].updateRecipes()
+    }
   }
 };
 </script>

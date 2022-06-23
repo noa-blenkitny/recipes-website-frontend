@@ -21,15 +21,26 @@
 export default {
   name: "App",
   methods: {
-    Logout() {
-      this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
-
-      this.$router.push("/").catch(() => {
-        this.$forceUpdate();
-      });
-    }
-  }
+    async Logout() {
+      try {
+        const response = await this.axios.post(
+          // this.$root.store.server_domain +"/Logout",
+          "http://localhost:3000/Logout"
+        );
+        this.$root.store.logout();
+        this.$root.toast("Logout", "User logged out successfully", "success");
+        this.$router.push("/").catch(() => {
+          this.$forceUpdate();
+        });
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+    // clickgenerateRandomRecipes()
+    // {
+    //   console.log("heree")
+    // }
+  },
 };
 </script>
 
