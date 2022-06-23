@@ -45,7 +45,7 @@
 export default {
   data() {
     return {
-      recipe: null
+      recipe: null,
     };
   },
   async created() {
@@ -55,16 +55,28 @@ export default {
 
       try {
         response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
-          // this.$root.store.server_domain + "/recipes/info",
+          // this.$root.store.server_domain + "recipes/fullDetailes",
           "http://localhost:3000/recipes/fullDetailes",
           {
-            params: { recipeId: this.$route.params.recipeId }
+            params: { recipeId: this.$route.params.recipeId },
           }
         );
-
-        // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
+        if (this.$root.store.username) {
+          await this.axios.post(
+            // this.$root.store.server_domain + "users/visited",
+            "http://localhost:3000/users/visited",
+            {
+              recipeId: this.$route.params.recipeId 
+            },
+            {
+              withCredentials: true
+            }
+          
+          );
+        }
+        // console.log("response.status", response.status);
+       
       } catch (error) {
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
@@ -78,7 +90,7 @@ export default {
         popularity,
         readyInMinutes,
         image,
-        title
+        title,
       } = response.data;
 
       let _instructions = analyzedInstructions
@@ -96,14 +108,14 @@ export default {
         popularity,
         readyInMinutes,
         image,
-        title
+        title,
       };
 
       this.recipe = _recipe;
     } catch (error) {
       console.log(error);
     }
-  }
+  },
 };
 </script>
 

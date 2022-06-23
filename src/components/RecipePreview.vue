@@ -13,6 +13,9 @@
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.popularity }} likes</li>
+        <!-- example on how to only show visited/likes if a user is logged in 
+        <li v-if="$root.store.username">isVisited</li>
+        -->
       </ul>
     </div>
   </router-link>
