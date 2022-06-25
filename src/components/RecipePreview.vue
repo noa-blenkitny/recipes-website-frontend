@@ -13,6 +13,16 @@
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.popularity }} likes</li>
+        <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg"/>
+        <!-- <button v-if="!recipe.isFavorite" id="favBtn"><img src="../assets/emptyheart.png"  class = "favImg">-->
+        <div id="imgDiv" v-if="!recipe.isFavorite" class = "imgDiv">
+        </div>
+        <!-- <img v-else src="../assets/eye.png" class = "visitedImg"/> -->
+
+        <!-- <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg"/> -->
+        <!-- example on how to only show visited/likes if a user is logged in 
+        <li v-if="$root.store.username">isVisited</li>
+        -->
       </ul>
     </div>
   </router-link>
@@ -138,4 +148,22 @@ export default {
   display: table-cell;
   text-align: center;
 }
+.visitedImg
+{
+  width:20px;
+  height:20px;
+}
+
+.imgDiv
+{
+  background: url("../assets/emptyheart.png") no-repeat;
+  width: 20px;
+  height: 20px;
+}
+.imgDiv:hover
+{
+  background: url("../assets/fullheart.png") no-repeat;
+  /* opacity:0.5; */
+}
+
 </style>

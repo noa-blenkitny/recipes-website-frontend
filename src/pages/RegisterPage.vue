@@ -260,7 +260,8 @@ export default {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           //this.$root.store.server_domain + "/Register",
-          "http://localhost:3000/Register",
+          // "http://localhost:3000/Register",
+          process.env.VUE_APP_ROOT_API_KEY + "/Register",
 
           {
             username: this.form.username,
