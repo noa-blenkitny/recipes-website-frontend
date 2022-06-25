@@ -36,6 +36,10 @@ export default {
       
        return this.$children[0].updateRecipes()
     }
+  },
+  mounted()
+  {
+    console.log(this.$children)
   }
 };
 </script>

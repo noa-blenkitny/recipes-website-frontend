@@ -95,6 +95,7 @@ export default {
   display: block;
   width: 98%;
   height: auto;
+  overflow: hidden;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
