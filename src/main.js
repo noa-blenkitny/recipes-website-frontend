@@ -7,8 +7,8 @@ import axios from "axios";
 import routes from "./routes";
 import VueRouter from "vue-router";
 import VueCookies from "vue-cookies";
-Vue.use(VueCookies);
 Vue.use(VueRouter);
+Vue.use(VueCookies);
 const router = new VueRouter({
   routes,
 });
