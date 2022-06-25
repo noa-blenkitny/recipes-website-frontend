@@ -54,18 +54,21 @@ export default {
       // response = this.$route.params.response;
 
       try {
+
         response = await this.axios.get(
+            process.env.VUE_APP_ROOT_API_KEY +"/recipes/fullDetailes",
           // this.$root.store.server_domain + "recipes/fullDetailes",
-          "http://localhost:3000/recipes/fullDetailes",
+          // "http://localhost:3000/recipes/fullDetailes",
           {
-            params: { recipeId: this.$route.params.recipeId },
+            params: { recipeId: this.$route.params.recipeId }
           }
         );
         if (response.status !== 200) this.$router.replace("/NotFound");
         if (this.$root.store.username) {
           await this.axios.post(
+            process.env.VUE_APP_ROOT_API_KEY + "/users/visited",
             // this.$root.store.server_domain + "users/visited",
-            "http://localhost:3000/users/visited",
+            // "http://localhost:3000/users/visited",
             {
               recipeId: this.$route.params.recipeId 
             },

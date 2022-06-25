@@ -24,8 +24,9 @@ export default {
     async Logout() {
       try {
         const response = await this.axios.post(
+          process.env.VUE_APP_ROOT_API_KEY + "/Logout",
           // this.$root.store.server_domain +"/Logout",
-          "http://localhost:3000/Logout"
+          // "http://localhost:3000/Logout"
         );
         this.$root.store.logout();
         this.$root.toast("Logout", "User logged out successfully", "success");
