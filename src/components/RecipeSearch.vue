@@ -1,11 +1,15 @@
 <template>
-  <b-container>
-    <b-row>
+  <b-container v-if="hasResults">
+    <b-row >
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
   </b-container>
+  <b-container v-else>
+    <p> no results found!</p>
+    </b-container>
+
 </template>
 
 <script>
@@ -18,6 +22,7 @@ export default {
   data() {
     return {
       recipes: [],
+      hasResults:true
     };
   },
   props: {
@@ -50,6 +55,9 @@ export default {
         } else {
           return "";
         }
+            
+        // return this.value_sort;
+        
       }
     },
     final_value_cuisine:
@@ -129,8 +137,17 @@ export default {
         // console.log(response);
         // const recipes = response.data.recipes;
         const recipes = response.data;
+        
         this.recipes = [];
         this.recipes.push(...recipes);
+        if(recipes.length > 0)
+        {
+          this.hasResults = true;
+        }
+        else
+        {
+          this.hasResults = false;
+        }
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);

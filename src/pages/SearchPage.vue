@@ -39,11 +39,11 @@
         label="name"
         track-by="name"
       >
-        <template slot="selection" slot-scope="{ values, isOpen }"
+        <template slot="selection" slot-scope="{ isOpen }"
           ><span
             class="multiselect__single"
             v-if="value_cuisine.length &amp;&amp; !isOpen"
-            >{{ values.length }} cusine options selected</span
+            >{{ value_cuisine.length }} cusine options selected</span
           ></template
         >
       </multiselect>
@@ -64,11 +64,11 @@
         label="name"
         track-by="name"
       >
-        <template slot="selection" slot-scope="{ values, isOpen }"
+        <template slot="selection" slot-scope="{  isOpen }"
           ><span
             class="multiselect__single"
             v-if="value_intolerance.length &amp;&amp; !isOpen"
-            >{{ values.length }} intolerance options selected</span
+            >{{ value_intolerance.length }} intolerance options selected</span
           ></template
         >
       </multiselect>
@@ -88,7 +88,7 @@
         label="name"
         track-by="name"
       >
-        <template slot="selection" slot-scope="{ values, isOpen }"
+        <template slot="selection" slot-scope="{  values, isOpen }"
           ><span
             class="multiselect__single"
             v-if="values.length &amp;&amp; !isOpen"
@@ -128,6 +128,7 @@
                 :state="validateState('text')"
                 placeholder="Search"
                 type="text"
+                autocomplete="off"
               ></b-form-input>
               <b-form-invalid-feedback v-if="!$v.form.text.required">
                 search query is required
@@ -138,6 +139,9 @@
             </b-col>
             <b-col sm="0.5">
               <b-button variant="outline-info" type="submit">Search</b-button>
+            </b-col>
+            <b-col sm="0.5">
+              <b-button v-if="hasRecentSearch" @click="showRecentSearch" variant="outline-secondary" type="button">Show Recent Search</b-button>
             </b-col>
           </b-row>
         </b-form-group>
@@ -182,7 +186,7 @@ export default {
   },
   data() {
     return {
-      
+      hasRecentSearch: false,
       value_diet: [],
       value_cuisine: [],
       value_intolerance: [],
@@ -218,7 +222,7 @@ export default {
       value_number: 5,
       form: {
         submitError: undefined,
-        text:""
+        text: "",
       },
       diets: [
         { name: "Gluten Free" },
@@ -252,13 +256,26 @@ export default {
     };
   },
   methods: {
-  
     async SearcgRecipes() {
-      try{
+      try {
+        let recentSearch = sessionStorage.getItem("recentSearch");
+        let recentSearchParams = {
+          text: this.$v.form.text.$model,
+          value_diet: this.value_diet,
+          value_cuisine: this.value_cuisine,
+          value_intolerance: this.value_intolerance,
+          value_sort: this.value_sort,
+          value_number: this.value_number,
+        };
+
+        if (recentSearch != null) {
+          sessionStorage.removeItem("recentSearch");
+
+        }
+        sessionStorage.setItem("recentSearch", JSON.stringify(recentSearchParams));
+        this.hasRecentSearch = true;
         return await this.$children[6].updateRecipes();
-      }
-      catch
-      {
+      } catch {
         this.form.submitError = err.response.data.message;
       }
     },
@@ -266,16 +283,40 @@ export default {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
-      onSearch() {
+    onSearch() {
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
       this.SearcgRecipes();
+    },
+    showRecentSearch()
+    {
+      try{
+        
+      let recentSearch = JSON.parse(sessionStorage.getItem("recentSearch"));
+      this.value_diet= recentSearch.value_diet;
+      this.value_cuisine= recentSearch.value_cuisine;
+      this.value_intolerance= recentSearch.value_intolerance;
+      this.value_sort= recentSearch.value_sort;
+      this.value_number= recentSearch.value_number;
+      this.$v.form.text.$model = recentSearch.text;
+      }
+      catch
+      {
+        console.log("in catch");
+      }
     }
   },
   mounted() {
+    let recentSearch = sessionStorage.getItem("recentSearch");
+    if (recentSearch != null) {
+      this.hasRecentSearch = true;
+    }
+    else{
+      this.hasRecentSearch = false;
+    }
     // console.log(this.$children)
   },
   validations: {
