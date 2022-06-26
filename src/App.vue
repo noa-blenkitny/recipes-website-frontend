@@ -1,19 +1,44 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
-      <router-link :to="{ name: 'search' }">Search</router-link>|
-      <!-- {{ !$root.store.username }} -->
-      <span v-if="!$root.store.username">
-        Guest:
-        <router-link :to="{ name: 'register' }">Register</router-link>|
-        <router-link :to="{ name: 'login' }">Login</router-link>|
-      </span>
-      <span v-else>
-        {{ $root.store.username }}: <button @click="Logout">Logout</button>|
-      </span>
+      <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar-brand href="#">NavBar</b-navbar-brand>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-collapse id="nav-collapse" is-nav>
+          <!-- for everybody -->
+          <b-navbar-nav>
+            <b-nav-item :to="{ name: 'main' }">Vue Recipes</b-nav-item>
+            <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
+            <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
+          </b-navbar-nav>
+          <!-- for guest -->
+          <b-navbar-nav v-if="!$root.store.username">
+            <b-nav-text> Hello Guest: </b-nav-text>
+            <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
+            <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
+          </b-navbar-nav>
+
+          <!-- for logged in member- right side btn -->
+          <b-navbar-nav class="ml-auto" v-if="$root.store.username">
+            <b-nav-form>
+              <b-button
+                size="sm"
+                @click="Logout"
+                class="my-2 my-sm-0"
+                type="button"
+                >Logout</b-button
+              >
+            </b-nav-form>
+          </b-navbar-nav>
+          <!-- <span v-else>
+            {{ $root.store.username }}: <button @click="Logout">Logout</button>
+          </span> -->
+        </b-collapse>
+      </b-navbar>
     </div>
     <router-view />
+
+    <div></div>
   </div>
 </template>
 
@@ -24,7 +49,7 @@ export default {
     async Logout() {
       try {
         const response = await this.axios.post(
-          process.env.VUE_APP_ROOT_API_KEY + "/Logout",
+          process.env.VUE_APP_ROOT_API_KEY + "/Logout"
           // this.$root.store.server_domain +"/Logout",
           // "http://localhost:3000/Logout"
         );
