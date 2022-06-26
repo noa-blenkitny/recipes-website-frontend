@@ -7,8 +7,8 @@ import axios from "axios";
 import routes from "./routes";
 import VueRouter from "vue-router";
 import VueCookies from "vue-cookies";
-Vue.use(VueCookies);
 Vue.use(VueRouter);
+Vue.use(VueCookies);
 const router = new VueRouter({
   routes,
 });
@@ -27,6 +27,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  FormSpinbuttonPlugin,
+  IconsPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -39,6 +41,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  FormSpinbuttonPlugin,
+  IconsPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
