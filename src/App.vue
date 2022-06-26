@@ -17,6 +17,18 @@
             <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
             <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
           </b-navbar-nav>
+          <!-- for logged in member- left side dropdown -->
+          <b-navbar-nav v-if="$root.store.username">
+            <b-nav-item-dropdown text="Personal" right>
+              <b-dropdown-item :to="{ name: 'register' }"
+                >Favorites</b-dropdown-item
+              >
+              <b-dropdown-item href="#">My Recipes</b-dropdown-item>
+              <b-dropdown-item href="#">Family Recipes</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <NewRecipeModal></NewRecipeModal>
+    
+          </b-navbar-nav>
 
           <!-- for logged in member- right side btn -->
           <b-navbar-nav class="ml-auto" v-if="$root.store.username">
@@ -43,8 +55,13 @@
 </template>
 
 <script>
+import NewRecipeModal from "./components/NewRecipeModal";
 export default {
+  
   name: "App",
+  components: {
+    NewRecipeModal
+  },
   methods: {
     async Logout() {
       try {

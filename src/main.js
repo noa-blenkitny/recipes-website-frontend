@@ -29,6 +29,8 @@ import {
   LayoutPlugin,
   FormSpinbuttonPlugin,
   IconsPlugin,
+  ModalPlugin ,
+  FormCheckboxPlugin 
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -43,6 +45,8 @@ import {
   LayoutPlugin,
   FormSpinbuttonPlugin,
   IconsPlugin,
+  ModalPlugin,
+  FormCheckboxPlugin 
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 

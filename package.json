@@ -6,6 +6,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@vuelidate/core": "^2.0.0-alpha.42",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
