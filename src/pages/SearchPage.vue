@@ -174,14 +174,14 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+// import Multiselect from "vue-multiselect";
 import RecipeSearch from "../components/RecipeSearch";
 //import diets from "../assets/diets";
 import { required, alpha } from "vuelidate/lib/validators";
 
 export default {
   components: {
-    Multiselect,
+    // Multiselect,
     RecipeSearch,
   },
   data() {
@@ -330,4 +330,3 @@ export default {
 };
 </script>
 
-<style src="../../dist/css/multiselect.css"></style>
