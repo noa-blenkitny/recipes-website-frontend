@@ -133,9 +133,6 @@
               <b-form-invalid-feedback v-if="!$v.form.text.required">
                 search query is required
               </b-form-invalid-feedback>
-              <b-form-invalid-feedback v-if="!$v.form.text.alpha">
-                should contain only characters
-              </b-form-invalid-feedback>
             </b-col>
             <b-col sm="0.5">
               <b-button variant="outline-info" type="submit">Search</b-button>
@@ -322,8 +319,7 @@ export default {
   validations: {
     form: {
       text: {
-        required,
-        alpha,
+        required
       },
     },
   },

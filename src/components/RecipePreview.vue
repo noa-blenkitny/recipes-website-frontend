@@ -1,4 +1,5 @@
 <template>
+<div>
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
@@ -14,10 +15,9 @@
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.popularity }} likes</li>
         <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg"/>
-        <!-- <button v-if="!recipe.isFavorite" id="favBtn"><img src="../assets/emptyheart.png"  class = "favImg">-->
-        <div id="imgDiv" v-if="!recipe.isFavorite" class = "imgDiv">
-        </div>
-        <!-- <img v-else src="../assets/eye.png" class = "visitedImg"/> -->
+        <!-- <div id="imgDiv" v-if="!recipe.isFavorite" class = "imgDiv"> -->
+        <!-- </div> -->
+        
 
         <!-- <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg"/> -->
         <!-- example on how to only show visited/likes if a user is logged in 
@@ -26,6 +26,9 @@
       </ul>
     </div>
   </router-link>
+  <img v-if="!recipe.isFavorite" @click="addtofavorits" src="../assets/emptyheart.png"  class = "favImg" style="height:18px; width:18px;">
+      <img v-else src="../assets/fullheart.png" class = "favImg"/>
+      </div>
 </template>
 
 <script>
@@ -33,7 +36,7 @@ export default {
   
   // data() {
   //   return {
-  //     image_load: false
+  //     is_logged_in
   //   };
   // },
   props: {
@@ -42,30 +45,33 @@ export default {
       required: true
     }
 
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
+  },methods:
+  {
+    async addtofavorits(){
+      
+       if(!this.$root.store.username){
+          alert("you should loged in first")
+       }
+       else{
+        try {
+        const response = await this.axios.post(
+          // "http://localhost:3000/recipes/random",
+          process.env.VUE_APP_ROOT_API_KEY + "/users/favorites",
+          // this.$root.store.server_domain + "/recipes/random",
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        {
+            recipeId: this.recipe.id,
+          }
+        );
+        this.recipe.isFavorite = true;
+       }
+        catch (error) {
+        console.log(error);
+      }
+    }
   }
+  }
+  
 };
 </script>
 
@@ -147,20 +153,12 @@ export default {
 }
 .visitedImg
 {
+  width:28px;
+  height:28px;
+}
+.favImg{
   width:20px;
   height:20px;
-}
-
-.imgDiv
-{
-  background: url("../assets/emptyheart.png") no-repeat;
-  width: 20px;
-  height: 20px;
-}
-.imgDiv:hover
-{
-  background: url("../assets/fullheart.png") no-repeat;
-  /* opacity:0.5; */
 }
 
 </style>
