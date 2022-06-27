@@ -142,8 +142,70 @@
               id="ingredients_input"
               v-model="item.name"
               type="text"
+              :state="item.name.length <=0 ? false : true"
+
               
             ></b-form-input>
+            <b-form-invalid-feedback
+                v-if="item.name.length <=0"
+              >
+                Ingredients is required
+              </b-form-invalid-feedback>
+          </div>
+          </b-form-group>
+
+              <!-- instructions -->
+        <b-form-group
+          id="input-group-instructions"
+          label-cols-sm="3"
+          label="Instructions:"
+          label-for="instructions_input"
+        >
+          <b-row class="my-1">
+            <b-col sm="10">
+              <b-form-input
+                id="instructions_input"
+                v-model="$v.form.instructions_input.$model"
+                type="text"
+                :state="validateState('instructions_input')"
+              ></b-form-input>
+
+              <b-form-invalid-feedback
+                v-if="!$v.form.instructions_input.required"
+              >
+                Instructions is required
+              </b-form-invalid-feedback>
+              
+            </b-col>
+            <b-col sm="0.5">
+              <b-button
+                @click="addNewInstruction"
+                variant="outline-info"
+                class="mb-2"
+              >
+                <b-icon icon="plus" aria-hidden="true"></b-icon>
+              </b-button>
+            </b-col>
+          </b-row>
+          <div
+            class="previous"
+            v-for="(item, counter) in instructions"
+            v-bind:key="counter"
+          >
+            <span @click="deleteInstruction(counter)">x</span>
+            <b-form-input
+              id="instructions_input"
+              v-model="item.name"
+              type="text"
+              :state="item.name.length <=0 ? false : true"
+
+              
+            ></b-form-input>
+            <b-form-invalid-feedback
+                v-if="item.name.length <=0"
+              >
+                Instructions is required
+              </b-form-invalid-feedback>
 
             <!-- <b-form-invalid-feedback v-if="!name.required">
               Ingredients is required
@@ -200,8 +262,10 @@ export default {
         image: "",
         servings: "",
         ingredients_input: "",
+        instructions_input: "",
       },
       ingridients: [],
+      instructions: [],
       selected: [],
       options: [
         { text: "Vegan", value: "vegan" },
@@ -236,6 +300,9 @@ export default {
       ingredients_input: {
         required,
       },
+      instructions_input:{
+        required,
+      },
       
     },
   },
@@ -243,11 +310,18 @@ export default {
     addNewIngredient() {
       this.ingridients.push({name:''});
     },
+    addNewInstruction() {
+      this.instructions.push({name:''});
+    },
     deleteIngredient(counter){
         this.ingridients.splice(counter,1);
         console.log(this.ingridients);
     },
-    validateState(param) {
+    deleteInstruction(counter){
+        this.instructions.splice(counter,1);
+        console.log(this.instructions);
+    },
+    validateState(param) { 
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
@@ -259,8 +333,10 @@ export default {
         image: "",
         servings: "",
         ingredients_input: "",
+        instructions_input: "",
       };
       this.ingridients = [];
+      this.instructions= [];
       this.selected = [];
       this.$nextTick(() => {
         this.$v.$reset();
@@ -277,6 +353,14 @@ export default {
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
+      }
+      for (let index = 0; index < this.ingridients.length; index++) {
+        let dict = this.ingridients[index];
+        if (dict.name.length <= 0) return;
+      }
+      for (let i = 0; i < this.instructions.length; i++) {
+        let dict_ins = this.instructions[i];
+        if (dict_ins.name.length <= 0) return;
       }
       ////////////////logic///////////
 
