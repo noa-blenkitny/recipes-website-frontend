@@ -64,21 +64,21 @@ export default {
           }
         );
         if (response.status !== 200) this.$router.replace("/NotFound");
-        // if (this.$root.store.username) {
-        //   await this.axios.post(
-        //     process.env.VUE_APP_ROOT_API_KEY + "/users/visited",
-        //     // this.$root.store.server_domain + "users/visited",
-        //     // "http://localhost:3000/users/visited",
-        //     {
-        //       recipeId: this.$route.params.recipeId 
-        //     },
-        //     {
-        //       withCredentials: true
-        //     }
+        if (this.$root.store.username) {
+          await this.axios.post(
+            process.env.VUE_APP_ROOT_API_KEY + "/users/visited",
+            // this.$root.store.server_domain + "users/visited",
+            // "http://localhost:3000/users/visited",
+            {
+              recipeId: this.$route.params.recipeId 
+            },
+            // {
+            //   withCredentials: true
+            // }
           
-        //   );
-        // }
-        // console.log("response.status", response.status);
+          );
+        }
+        console.log("response.status", response.status);
        
       } catch (error) {
         console.log("error.response.status", error.response.status);

@@ -120,11 +120,7 @@
               >
                 Ingredients is required
               </b-form-invalid-feedback>
-              <b-form-invalid-feedback
-                v-if="!$v.form.ingredients_input.alphaNum"
-              >
-                must contain only alpha numeric characters
-              </b-form-invalid-feedback>
+              
             </b-col>
             <b-col sm="0.5">
               <b-button
@@ -239,7 +235,6 @@ export default {
       },
       ingredients_input: {
         required,
-        alphaNum,
       },
       
     },
