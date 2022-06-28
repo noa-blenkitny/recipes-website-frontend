@@ -1,0 +1,52 @@
+<template>
+  <b-container>
+    <h3>
+      Family Recipes
+      <slot></slot>
+    </h3>
+    <b-row>
+      <b-col v-for="r in recipes" :key="r.recipe_id">
+        <FamilyRecipePreview class="FamilyRecipesPreview" :recipe="r" />
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<script>
+import FamilyRecipePreview from "./FamilyRecipePreview.vue";
+export default {
+  name: "FamillyRecipePreviewList",
+  components: {
+    FamilyRecipePreview
+  },
+  data() {
+    return {
+      recipes: []
+    };
+  },
+  mounted() {
+    this.show_family_recipes();
+  },
+  methods: {
+    async show_family_recipes() {
+      try {
+        const response = await this.axios.get(
+          process.env.VUE_APP_ROOT_API_KEY + "/users/familyrecipes",
+        );
+        const recipes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipes);
+        // console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.container {
+  min-height: 400px;
+}
+</style>
