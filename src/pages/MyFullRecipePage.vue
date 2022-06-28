@@ -11,6 +11,21 @@
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+              <img
+                v-if="recipe.vegan"
+                src="../assets/vegansymbol.png"
+                class="veganImg"
+              />
+              <img
+                v-else-if="recipe.vegetarian"
+                src="../assets/vegeterian.png"
+                class="visitedImg"
+              />
+              <img
+                v-if="recipe.glutenFree"
+                src="../assets/glutenfree.png"
+                class="glutenfreeImg"
+              />
             </div>
             Ingredients:
             <ul>
@@ -55,17 +70,17 @@ export default {
     try {
       let response;
       try {
-        console.log(this.$route.params.recipeId);
         response = await this.axios.get(
-          process.env.VUE_APP_ROOT_API_KEY + "/users/myrecipes/fulldetailes/"+this.$route.params.recipeId
+          process.env.VUE_APP_ROOT_API_KEY +
+            "/users/myrecipes/fulldetailes/" +
+            this.$route.params.recipeId
         );
 
-        if (response.status !== 200) 
-        {this.$router.replace("/NotFound");
-        console.log("response.status", response.status);
-        return;
+        if (response.status !== 200) {
+          this.$router.replace("/NotFound");
+          console.log("response.status", response.status);
+          return;
         }
-        
       } catch (error) {
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
@@ -79,13 +94,21 @@ export default {
         readyInMinutes,
         image,
         title,
+        vegan,
+        vegetarian,
+        glutenFree,
       } = response.data[0];
-      console.log("response");
-      console.log(response.data);
 
-      let _analyzedInstructions = analyzedInstructions.split(","); //change to $$$
-      let _extendedIngredients = extendedIngredients.split(","); //change to $$$
-
+      let _analyzedInstructions = analyzedInstructions.split("$$$"); //change to $$$
+      let _extendedIngredients = extendedIngredients.split("$$$"); //change to $$$
+      console.log("analayzed");
+      console.log(analyzedInstructions);
+      console.log("analayzed after split");
+      console.log(_analyzedInstructions);
+      console.log("ing");
+      console.log(extendedIngredients);
+      console.log("ing after split");
+      console.log(_extendedIngredients);
       let _recipe = {
         _analyzedInstructions,
         _extendedIngredients,
@@ -93,6 +116,9 @@ export default {
         readyInMinutes,
         image,
         title,
+        vegan,
+        vegetarian,
+        glutenFree,
       };
 
       this.recipe = _recipe;
@@ -119,4 +145,20 @@ export default {
 /* .recipe-header{
 
 } */
+.visitedImg {
+  width: 28px;
+  height: 28px;
+}
+.favImg {
+  width: 20px;
+  height: 20px;
+}
+.veganImg {
+  width: 22px;
+  height: 28px;
+}
+.glutenfreeImg {
+  width: 22px;
+  height: 22px;
+}
 </style>

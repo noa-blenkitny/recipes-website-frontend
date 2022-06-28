@@ -120,7 +120,6 @@
               >
                 Ingredients is required
               </b-form-invalid-feedback>
-              
             </b-col>
             <b-col sm="0.5">
               <b-button
@@ -142,19 +141,15 @@
               id="ingredients_input"
               v-model="item.name"
               type="text"
-              :state="item.name.length <=0 ? false : true"
-
-              
+              :state="item.name.length <= 0 ? false : true"
             ></b-form-input>
-            <b-form-invalid-feedback
-                v-if="item.name.length <=0"
-              >
-                Ingredients is required
-              </b-form-invalid-feedback>
+            <b-form-invalid-feedback v-if="item.name.length <= 0">
+              Ingredients is required
+            </b-form-invalid-feedback>
           </div>
-          </b-form-group>
+        </b-form-group>
 
-              <!-- instructions -->
+        <!-- instructions -->
         <b-form-group
           id="input-group-instructions"
           label-cols-sm="3"
@@ -175,7 +170,6 @@
               >
                 Instructions is required
               </b-form-invalid-feedback>
-              
             </b-col>
             <b-col sm="0.5">
               <b-button
@@ -197,15 +191,11 @@
               id="instructions_input"
               v-model="item.name"
               type="text"
-              :state="item.name.length <=0 ? false : true"
-
-              
+              :state="item.name.length <= 0 ? false : true"
             ></b-form-input>
-            <b-form-invalid-feedback
-                v-if="item.name.length <=0"
-              >
-                Instructions is required
-              </b-form-invalid-feedback>
+            <b-form-invalid-feedback v-if="item.name.length <= 0">
+              Instructions is required
+            </b-form-invalid-feedback>
 
             <!-- <b-form-invalid-feedback v-if="!name.required">
               Ingredients is required
@@ -213,7 +203,6 @@
             <b-form-invalid-feedback v-if="!name.alphaNum">
               must contain only alpha numeric characters
             </b-form-invalid-feedback> -->
-     
           </div>
         </b-form-group>
 
@@ -250,10 +239,9 @@ import {
   url,
   alpha,
   alphaNum,
-  
 } from "vuelidate/lib/validators";
 export default {
-    // components: {useVuelidate, reactive, helpers},
+  // components: {useVuelidate, reactive, helpers},
   data() {
     return {
       form: {
@@ -300,28 +288,27 @@ export default {
       ingredients_input: {
         required,
       },
-      instructions_input:{
+      instructions_input: {
         required,
       },
-      
     },
   },
   methods: {
     addNewIngredient() {
-      this.ingridients.push({name:''});
+      this.ingridients.push({ name: "" });
     },
     addNewInstruction() {
-      this.instructions.push({name:''});
+      this.instructions.push({ name: "" });
     },
-    deleteIngredient(counter){
-        this.ingridients.splice(counter,1);
-        console.log(this.ingridients);
+    deleteIngredient(counter) {
+      this.ingridients.splice(counter, 1);
+      console.log(this.ingridients);
     },
-    deleteInstruction(counter){
-        this.instructions.splice(counter,1);
-        console.log(this.instructions);
+    deleteInstruction(counter) {
+      this.instructions.splice(counter, 1);
+      console.log(this.instructions);
     },
-    validateState(param) { 
+    validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
@@ -336,7 +323,7 @@ export default {
         instructions_input: "",
       };
       this.ingridients = [];
-      this.instructions= [];
+      this.instructions = [];
       this.selected = [];
       this.$nextTick(() => {
         this.$v.$reset();
@@ -349,7 +336,7 @@ export default {
       this.handleSubmit();
     },
 
-    handleSubmit() {
+    async handleSubmit() {
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -362,9 +349,46 @@ export default {
         let dict_ins = this.instructions[i];
         if (dict_ins.name.length <= 0) return;
       }
+      
       ////////////////logic///////////
+      try {
+        let exIng;
+        if (this.ingridients.length > 0) {
+          let arrayOfIngNames = this.ingridients.map((ing) => (ing.name));
+          let allIng = arrayOfIngNames.join("$$$");
+          exIng = this.form.ingredients_input + "$$$" + allIng ;
+        } else {
+          exIng = this.form.ingredients_input;
+        }
+        let analyzedIns;
+        if (this.instructions.length > 0) {
+          let arrayOfInsNames = this.instructions.map((ins) => (ins.name));
+          let allIns = arrayOfInsNames.join("$$$");
+          analyzedIns =
+            this.form.instructions_input + "$$$" + allIns;
+        } else {
+          analyzedIns = this.form.instructions_input;
+        }
+        const response = await this.axios.post(
+          process.env.VUE_APP_ROOT_API_KEY + "/users/createrecipe",
+          {
+            title: this.form.title,
+            readyInMinutes: this.form.minutes,
+            image: this.form.image,
+            popularity: "0",
+            vegan: this.selected.includes("vegan") ? "1" : "0",
+            vegetarian: this.selected.includes("vegetarian") ? "1" : "0",
+            glutenFree: this.selected.includes("glutenFree") ? "1" : "0",
+            extendedIngredients: exIng,
+            servings: this.form.servings,
+            analyzedInstructions: analyzedIns,
+          }
+        );
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
 
-      // Hide the modal manually
       this.$nextTick(() => {
         this.$bvModal.hide("modal-prevent-closing");
       });

@@ -92,8 +92,7 @@ export default {
       return $dirty ? !$error : null;
     },
     async Login() {
-      try {
-        
+      try { 
         const response = await this.axios.post(
           process.env.VUE_APP_ROOT_API_KEY +"/Login",
           {
@@ -101,9 +100,6 @@ export default {
             password: this.form.password
           }
         );
-        console.log(response);
-        // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$router.push("/");
       } catch (err) {

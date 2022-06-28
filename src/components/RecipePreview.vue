@@ -29,18 +29,16 @@
 
 <script>
 export default {
-  
-  // data() {
-  //   return {
-  //     is_logged_in
-  //   };
-  // },
+
   props: {
     recipe: {
       type: Object,
       required: true
     }
-
+,
+// created() {
+//         this.$root.$refs.RecipePreview = this;
+//     },
   },methods:
   {
     async addtofavorits(){
