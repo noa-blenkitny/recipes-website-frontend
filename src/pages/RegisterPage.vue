@@ -104,9 +104,9 @@
           For that, your password should be also:
         </b-form-text>
         <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.length"
+          v-if="$v.form.password.required && !$v.form.password.pass"
         >
-          Have length between 5-10 characters long
+          Have length between 5-10 characters long and contain at least one number and one special character
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -183,6 +183,7 @@
 </template>
 
 <script>
+const passRegex = helpers.regex('password',/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{5,10}$/)
 import countries from "../assets/countries";
 import {
   required,
@@ -190,8 +191,11 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
+  helpers
 } from "vuelidate/lib/validators";
+
+
 
 export default {
   name: "Register",
@@ -209,7 +213,8 @@ export default {
       },
       countries: [{ value: null, text: "", disabled: true }],
       errors: [],
-      validated: false
+      validated: false,
+      
     };
   },
   validations: {
@@ -232,7 +237,7 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        pass : passRegex
       },
       confirmedPassword: {
         required,
