@@ -31,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    this.updateRecipes();
+    // this.updateRecipes(); //TODO: remove comment
   },
   methods: {
     async updateRecipes() {

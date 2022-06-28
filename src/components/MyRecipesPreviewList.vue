@@ -25,20 +25,14 @@ export default {
     };
   },
   mounted() {
-    this.show_fav_recipes();
+    this.show_my_recipes();
   },
   methods: {
-    async show_fav_recipes() {
+    async show_my_recipes() {
       try {
         const response = await this.axios.get(
-          // "http://localhost:3000/recipes/random",
           process.env.VUE_APP_ROOT_API_KEY + "/users/myrecipes",
-          // this.$root.store.server_domain + "/recipes/random",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-
-        // console.log(response);
-        // const recipes = response.data.recipes;
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
