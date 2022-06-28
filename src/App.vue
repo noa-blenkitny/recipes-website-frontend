@@ -20,7 +20,7 @@
           <!-- for logged in member- left side dropdown -->
           <b-navbar-nav v-if="$root.store.username">
             <b-nav-item-dropdown text="Personal" right>
-              <b-dropdown-item :to="{ name: 'register' }"
+              <b-dropdown-item :to="{ name: 'favorites' }"
                 >Favorites</b-dropdown-item
               >
               <b-dropdown-item href="#">My Recipes</b-dropdown-item>
