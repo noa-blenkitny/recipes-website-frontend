@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <b-navbar toggleable="lg" type="dark" variant="none">
+      <b-navbar toggleable="lg" type="dark" variant="none" class="myNav">
         <b-navbar-brand
           style="font-family: 'Playfair Display', serif;
           color: rgb(235, 235, 235);"
@@ -11,29 +11,39 @@
         <b-collapse id="nav-collapse" is-nav>
           <!-- for everybody -->
           <b-navbar-nav>
-            <b-nav-item :to="{ name: 'main' }">Home</b-nav-item>
-            <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
-            <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
+            <b-nav-item class="myNavItems" :to="{ name: 'main' }"
+              >Home</b-nav-item
+            >
+            <b-nav-item class="myNavItems" :to="{ name: 'search' }"
+              >Search</b-nav-item
+            >
+            <b-nav-item class="myNavItems" :to="{ name: 'about' }"
+              >About</b-nav-item
+            >
           </b-navbar-nav>
           <!-- for guest -->
           <b-navbar-nav v-if="!$root.store.username">
-            <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
-            <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
+            <b-nav-item class="myNavItems" :to="{ name: 'register' }"
+              >Register</b-nav-item
+            >
+            <b-nav-item class="myNavItems" :to="{ name: 'login' }"
+              >Login</b-nav-item
+            >
           </b-navbar-nav>
           <!-- for logged in member- left side dropdown -->
           <b-navbar-nav v-if="$root.store.username">
-            <b-nav-item-dropdown text="Personal" right>
-              <b-dropdown-item :to="{ name: 'favorites' }"
+            <b-nav-item-dropdown  class="myNavItems" text="Personal" right>
+              <b-dropdown-item :to="{ name: 'favorites' }" class="myDropItem"
                 >Favorites</b-dropdown-item
               >
-              <b-dropdown-item :to="{ name: 'myrecipes' }"
+              <b-dropdown-item :to="{ name: 'myrecipes' }" class="myDropItem"
                 >My Recipes</b-dropdown-item
               >
-              <b-dropdown-item :to="{ name: 'familyrecipes' }"
+              <b-dropdown-item :to="{ name: 'familyrecipes' }" class="myDropItem"
                 >Family Recipes</b-dropdown-item
               >
             </b-nav-item-dropdown>
-            <NewRecipeModal></NewRecipeModal>
+            <NewRecipeModal class="myNavItems"></NewRecipeModal>
           </b-navbar-nav>
 
           <!-- for logged in member- right side btn -->
@@ -45,9 +55,10 @@
             </b-nav-text>
             <b-nav-form>
               <b-button
+              id="logoutBtn"
                 size="sm"
                 @click="Logout"
-                class="my-2 my-sm-0"
+                class="my-2 my-sm-0 myNavItems"
                 type="button"
                 >Logout</b-button
               >
@@ -99,60 +110,61 @@ export default {
 
 <style lang="scss">
 @import "@/scss/form-style.scss";
+// @import "./style.scss";
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  min-height: 100vh;
-}
+// #app {
+//   font-family: Avenir, Helvetica, Arial, sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   color: #2c3e50;
+//   min-height: 100vh;
+// }
 
-#nav {
-  padding: 30px;
-}
-.navbar {
-  background-color: rgb(13, 84, 87) !important;
-}
+// #nav {
+//   padding: 30px;
+// }
+// .navbar {
+//   background-color: rgb(13, 84, 87) !important;
+// }
 
-.dropdown-menu {
-  background-color: rgb(125, 180, 182) !important;
-}
-.dropdown-item:hover {
-  background-color: rgb(125, 180, 182) !important;
-  // background-size: 100% 2px !important;
-  // margin: auto !important;
-  // background-position: none!important;
-  background-position: unset!important;
-  background-size: unset !important;
-  background-repeat:unset!important;
-  padding-bottom: unset!important;
-  background-image:unset!important;
-  color: pink!important;
+// .dropdown-menu {
+//   background-color: rgb(125, 180, 182) !important;
+// }
+// .dropdown-item:hover {
+//   background-color: rgb(125, 180, 182) !important;
+//   // background-size: 100% 2px !important;
+//   // margin: auto !important;
+//   // background-position: none!important;
+//   background-position: unset!important;
+//   background-size: unset !important;
+//   background-repeat:unset!important;
+//   padding-bottom: unset!important;
+//   background-image:unset!important;
+//   color: pink!important;
 
-}
-.dropdown-item.router-link-exact-active {
-  color:black !important;
-  
-}
-#nav a {
-  margin-left: 8px;
-  margin-right: 8px;
-  letter-spacing: 1px;
-  font-family: "Playfair Display", serif;
-  color: rgb(235, 235, 235);
-}
+// }
+// .dropdown-item.router-link-exact-active {
+//   color:black !important;
 
-#nav a:hover {
-  background-position: bottom center; /*Adjust the background-position to move the line*/
-  background-size: 115% 2px; /*Adjust the background size to control length and height*/
-  background-repeat: no-repeat;
-  padding-bottom: 4px;
-  background-image: linear-gradient(#a7425d 0 0);
-}
+// }
+// #nav a {
+//   margin-left: 8px;
+//   margin-right: 8px;
+//   letter-spacing: 1px;
+//   font-family: "Playfair Display", serif;
+//   color: rgb(235, 235, 235);
+// }
 
-#nav a.router-link-exact-active {
-  color: rgb(125, 180, 182);
-}
+// #nav a:hover {
+//   background-position: bottom center; /*Adjust the background-position to move the line*/
+//   background-size: 115% 2px; /*Adjust the background size to control length and height*/
+//   background-repeat: no-repeat;
+//   padding-bottom: 4px;
+//   background-image: linear-gradient(#a7425d 0 0);
+// }
+
+// #nav a.router-link-exact-active {
+//   color: rgb(125, 180, 182);
+// }
 </style>
