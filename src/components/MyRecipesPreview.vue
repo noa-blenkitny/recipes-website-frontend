@@ -1,7 +1,7 @@
 <template>
 <div>
   <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+    :to="{ name: 'myfullrecipe', params: { recipeId: recipe.recipe_id } }"
     class="recipe-preview"
   >
     <div class="recipe-body">
@@ -13,8 +13,8 @@
       </div>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
-        <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg"/>
+        <li>{{ recipe.aggregateLikes }} likes</li>
+        <!-- <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg"/> -->
         <img v-if="recipe.vegan" src="../assets/vegansymbol.png" class = "veganImg"/>
         <img v-else-if="recipe.vegetarian" src="../assets/vegeterian.png" class = "visitedImg"/>
         <img v-if="recipe.glutenFree" src="../assets/glutenfree.png" class = "glutenfreeImg"/>
@@ -22,8 +22,8 @@
       </ul>
     </div>
   </router-link>
-  <img v-if="!recipe.isFavorite" @click="addtofavorits" src="../assets/emptyheart.png"  class = "favImg" style="height:18px; width:18px;">
-      <img v-else src="../assets/fullheart.png" class = "favImg"/>
+  <!-- <img v-if="!recipe.isFavorite" @click="addtofavorits" src="../assets/emptyheart.png"  class = "favImg" style="height:18px; width:18px;">
+      <img v-else src="../assets/fullheart.png" class = "favImg"/> -->
       </div>
 </template>
 
@@ -40,35 +40,9 @@ export default {
       type: Object,
       required: true
     }
-
-  },methods:
-  {
-    async addtofavorits(){
-      
-       if(!this.$root.store.username){
-          alert("you should loged in first")
-       }
-       else{
-        try {
-        const response = await this.axios.post(
-          // "http://localhost:3000/recipes/random",
-          process.env.VUE_APP_ROOT_API_KEY + "/users/favorites",
-          // this.$root.store.server_domain + "/recipes/random",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        {
-            recipeId: this.recipe.id,
-          }
-        );
-        this.recipe.isFavorite = true;
-       }
-        catch (error) {
-        console.log(error);
-      }
-    }
   }
-  }
+  };
   
-};
 </script>
 
 <style scoped>

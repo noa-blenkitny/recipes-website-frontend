@@ -23,7 +23,7 @@
               <b-dropdown-item :to="{ name: 'favorites' }"
                 >Favorites</b-dropdown-item
               >
-              <b-dropdown-item href="#">My Recipes</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'myrecipes' }">My Recipes</b-dropdown-item>
               <b-dropdown-item href="#">Family Recipes</b-dropdown-item>
             </b-nav-item-dropdown>
             <NewRecipeModal></NewRecipeModal>
