@@ -52,7 +52,7 @@ export default {
 }
 h1{
 font-family: 'Patrick Hand', cursive;
-width: 33%;
+width: 40%;
 margin-right: auto;
 margin-top: 5%;
 margin-bottom: 5%;

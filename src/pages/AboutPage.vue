@@ -1,6 +1,6 @@
 <template>
     <div id="about">
-      <b-row class="myrow">
+      <b-row class="myrow" no-gutters>
       <b-col class="timmon" sm="5">
         <img id="timmonpic" src="../assets/timmon.png">
         </b-col>

@@ -197,6 +197,10 @@ export default {
 /* .recipe-header{
 
 } */
+.container{
+  font-family: 'Patrick Hand', cursive!important;
+  letter-spacing: 1px;
+}
 .visitedImg
 {
   width:28px;
@@ -213,5 +217,8 @@ export default {
 .glutenfreeImg{
   width:22px;
   height:22px;
+}
+h1{
+  margin-bottom: 5px;
 }
 </style>

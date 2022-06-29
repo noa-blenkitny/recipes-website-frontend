@@ -1,16 +1,22 @@
 <template>
-  <div class="container">
+  <div class="container_fuulpage">
     <div v-if="recipe">
+      
+      
       <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+        <h1 >{{ recipe.title }}</h1>
       </div>
-      <div class="recipe-body">
-        <div class="wrapper">
-          <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+      <b-row no-gutters>
+        <b-col>
+              <img :src="recipe.image" class="recipeimg" />
+              </b-col>
+              <b-col class="recipecol">
+              <div>
+                <b-icon icon="clock"></b-icon>
+               {{ recipe.readyInMinutes }} <span  style="font-size: 10px;">minutes</span></div>
+              <div>
+              <b-icon icon="hand-thumbs-up"></b-icon>   
+              {{ recipe.aggregateLikes }} <span  style="font-size: 10px;">likes</span></div>
               <img
                 v-if="recipe.vegan"
                 src="../assets/vegansymbol.png"
@@ -26,8 +32,11 @@
                 src="../assets/glutenfree.png"
                 class="glutenfreeImg"
               />
-            </div>
-            Ingredients:
+              </b-col>
+             </b-row>
+             <b-row no-gutters class="recipe_body">
+              <b-col>
+            <span style="font-size: 25px; text-decoration: underline;">Ingredients:</span>
             <ul>
               <li
                 v-for="(r, index) in recipe._extendedIngredients"
@@ -36,9 +45,9 @@
                 {{ r }}
               </li>
             </ul>
-          </div>
-          <div class="wrapped">
-            Instructions:
+            </b-col>
+            <b-col class="instructions">
+            <span style="font-size: 25px;text-decoration: underline;">Instructions:</span>
             <ol>
               <li
                 v-for="(s, index) in recipe._analyzedInstructions"
@@ -47,16 +56,16 @@
                 {{ s }}
               </li>
             </ol>
-          </div>
-        </div>
-      </div>
+            </b-col>
+             </b-row>>
+          
       <!-- <pre>
       {{ $route.params }}
       {{ recipe }}
     </pre
       > -->
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -122,17 +131,34 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+/* .wrapper {
   display: flex;
 }
 .wrapped {
-  width: 50%;
+  width: 100%;
 }
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+} */
+.container_fuulpage{
+margin-top: 3%;
+font-family: 'Patrick Hand', cursive;
+font-size: 20px;
+}
+.recipeimg{
+  display: block;
+  margin-left: 5%;
+  margin-right: auto;
+  width:97%;
+  border-radius: 3px;
+  /* height: 100px; */
+
+}
+.recipecol{
+  margin-left: 5%;
 }
 /* .recipe-header{
 
@@ -152,5 +178,16 @@ export default {
 .glutenfreeImg {
   width: 22px;
   height: 22px;
+}
+h1{
+  margin-left: 5%;
+  font-size: 50px;
+}
+.recipe_body{
+  margin-top: 3%;
+  margin-left: 5%;
+}
+.instructions{
+  margin-right: 3%;
 }
 </style>
