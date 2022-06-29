@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">Search Page</h1>
+    <h1 class="title">Search Page
+    <b-icon icon="search"></b-icon>
+    </h1>
     <!-- diet div -->
     <div>
       <multiselect
@@ -100,9 +102,9 @@
     </div>
 
     <!-- number retrieve -->
-    <div>
+    <div class="number_label">
       <label id="number_label" for="demo-sb" style="margin-right: 10px;"
-        >Number to retrieve
+        >Number to retrieve:
       </label>
       <b-form-spinbutton
         id="sb-inline"
@@ -118,9 +120,6 @@
       <b-form @submit.prevent="onSearch">
         <b-form-group id="input-group-search_input" label-for="search_input">
           <b-row class="my-1">
-            <b-col sm="0.5">
-              <b-icon icon="search"></b-icon>
-            </b-col>
             <b-col sm="9">
               <b-form-input
                 id="search_input"
@@ -135,7 +134,7 @@
               </b-form-invalid-feedback>
             </b-col>
             <b-col sm="0.5">
-              <b-button variant="outline-info" type="submit">Search</b-button>
+              <b-button class="mysearchbtn" type="submit">Search</b-button>
             </b-col>
             <b-col sm="0.5">
               <b-button v-if="hasRecentSearch" @click="showRecentSearch" variant="outline-secondary" type="button">Show Recent Search</b-button>
@@ -326,4 +325,35 @@ export default {
 };
 </script>
 
-<style src="../../dist/css/multiselect.css"></style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css">
+</style>
+<style>
+h1{
+width: 33%;
+margin-right: auto;
+margin-top: 5%;
+margin-bottom: 5%;
+margin-left: auto;
+font-size: 53px;
+}
+.mysearchbtn{
+  background: rgb(13, 84, 87);
+  color: white;
+  font-family: 'Patrick Hand', cursive;
+  letter-spacing: 1px;
+
+}
+.mysearchbtn:hover{
+  background-color: rgb(25, 103, 105);
+
+}
+.number_label{
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.container{
+  font-family: 'Patrick Hand', cursive!important;
+  letter-spacing: 1px;
+}
+
+</style>
