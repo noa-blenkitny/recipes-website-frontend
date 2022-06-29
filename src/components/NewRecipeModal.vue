@@ -2,14 +2,19 @@
   <div>
     <b-nav-item v-b-modal.modal-prevent-closing>New Recipe</b-nav-item>
     <b-modal
+      modal-class="newRecipeModal"
       id="modal-prevent-closing"
       ref="modal"
       title="Create A New Recipe"
       @show="resetModal"
       @hidden="resetModal"
       @ok="handleOk"
-      >Hello From Modal!
-      <b-form ref="form" @submit.stop.prevent="handleSubmit">
+    >
+      <b-form
+        class="myModalForm"
+        ref="form"
+        @submit.stop.prevent="handleSubmit"
+      >
         <!-- Title -->
         <b-form-group
           id="input-group-Title"
@@ -124,10 +129,11 @@
             <b-col sm="0.5">
               <b-button
                 @click="addNewIngredient"
-                variant="outline-info"
-                class="mb-2"
+                
+                class="mb-2 addBtn"
+
               >
-                <b-icon icon="plus" aria-hidden="true"></b-icon>
+                <b-icon class="addIcon" icon="plus" aria-hidden="true" ></b-icon>
               </b-button>
             </b-col>
           </b-row>
@@ -175,9 +181,9 @@
               <b-button
                 @click="addNewInstruction"
                 variant="outline-info"
-                class="mb-2"
+                class="mb-2 addBtn"
               >
-                <b-icon icon="plus" aria-hidden="true"></b-icon>
+                <b-icon class="addIcon" icon="plus" aria-hidden="true" ></b-icon>
               </b-button>
             </b-col>
           </b-row>
@@ -196,20 +202,10 @@
             <b-form-invalid-feedback v-if="item.name.length <= 0">
               Instructions is required
             </b-form-invalid-feedback>
-
-            <!-- <b-form-invalid-feedback v-if="!name.required">
-              Ingredients is required
-            </b-form-invalid-feedback>
-            <b-form-invalid-feedback v-if="!name.alphaNum">
-              must contain only alpha numeric characters
-            </b-form-invalid-feedback> -->
           </div>
         </b-form-group>
 
-        <b-form-group
-          label="Plain inline checkboxes"
-          v-slot="{ ariaDescribedby }"
-        >
+        <b-form-group label="" v-slot="{ ariaDescribedby }">
           <b-form-checkbox-group
             v-model="selected"
             :options="options"
@@ -238,7 +234,6 @@ import {
   minValue,
   url,
   alpha,
-  alphaNum,
 } from "vuelidate/lib/validators";
 export default {
   // components: {useVuelidate, reactive, helpers},
@@ -349,23 +344,22 @@ export default {
         let dict_ins = this.instructions[i];
         if (dict_ins.name.length <= 0) return;
       }
-      
+
       ////////////////logic///////////
       try {
         let exIng;
         if (this.ingridients.length > 0) {
-          let arrayOfIngNames = this.ingridients.map((ing) => (ing.name));
+          let arrayOfIngNames = this.ingridients.map((ing) => ing.name);
           let allIng = arrayOfIngNames.join("$$$");
-          exIng = this.form.ingredients_input + "$$$" + allIng ;
+          exIng = this.form.ingredients_input + "$$$" + allIng;
         } else {
           exIng = this.form.ingredients_input;
         }
         let analyzedIns;
         if (this.instructions.length > 0) {
-          let arrayOfInsNames = this.instructions.map((ins) => (ins.name));
+          let arrayOfInsNames = this.instructions.map((ins) => ins.name);
           let allIns = arrayOfInsNames.join("$$$");
-          analyzedIns =
-            this.form.instructions_input + "$$$" + allIns;
+          analyzedIns = this.form.instructions_input + "$$$" + allIns;
         } else {
           analyzedIns = this.form.instructions_input;
         }
@@ -396,4 +390,38 @@ export default {
   },
 };
 </script>
-<style></style>
+<style lang="scss">
+.newRecipeModal {
+  font-family: "Patrick Hand", cursive !important;
+  letter-spacing: 1px;
+}
+.newRecipeModal .btn-primary {
+  // font-size: 20px;
+  width: 18%;
+  background: rgb(13, 84, 87);
+  border-color: rgb(13, 84, 87);
+}
+.newRecipeModal .btn-primary:hover {
+  background: rgb(27, 106, 109);
+  border-color: rgb(27, 106, 109);
+}
+.newRecipeModal button {
+  letter-spacing: 3px;
+}
+.addBtn
+{
+   background: rgb(13, 84, 87);
+  border-color: rgb(13, 84, 87);
+}
+.addBtn:hover
+{
+    background: rgb(27, 106, 109);
+  border-color: rgb(27, 106, 109);
+  
+}
+
+.addIcon
+{
+  color:white;
+}
+</style>
