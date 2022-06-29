@@ -1,29 +1,57 @@
 <template>
 <div>
+  <b-card no-body
+  :title="recipe.title"
+  img-top
+  class="mb-2"
+  style="max-width: 20rem;"
+  tag="article"
+  >
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <div class="recipe-body">
+  <b-card-img
+  :src="recipe.image" class="recipe-image">
+  </b-card-img>
+    <!-- <div class="recipe-body">
       <img :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
+    </div> -->
+  </router-link>
+      <div class="recipe-footer">
+      <b-card-title :title="recipe.title" class="recipe-title text-center">
         {{ recipe.title }}
-      </div>
+      </b-card-title>
       <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
-        <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg"/>
-        <img v-if="recipe.vegan" src="../assets/vegansymbol.png" class = "veganImg"/>
-        <img v-else-if="recipe.vegetarian" src="../assets/vegeterian.png" class = "visitedImg"/>
+        <b-row>
+          <b-col>
+            <b-icon icon="clock"></b-icon>
+        {{ recipe.readyInMinutes }} <span style="font-size: 10px;"> minutes
+        </span>
+        </b-col>
+        <b-col>
+          <b-icon icon="hand-thumbs-up"></b-icon>
+        {{ recipe.popularity }} <span style="font-size: 10px;">likes </span>
+        </b-col>
+        </b-row>
+        <b-row class="rowtocenter">
+          <b-col sm="4" v-if="recipe.vegan">
+        <img src="../assets/vegansymbol.png" class = "veganImg"/>
+        </b-col>
+        <b-col sm="4" v-else-if="recipe.vegetarian">
+        <img src="../assets/vegeterian.png" class = "vegetarianImg"/>
+        </b-col>
+        <b-col sm="4">
         <img v-if="recipe.glutenFree" src="../assets/glutenfree.png" class = "glutenfreeImg"/>
+        </b-col>
+        </b-row>
         
+        <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg float-right" />
+        <img v-if="!recipe.isFavorite" @click="addtofavorits" src="../assets/emptyheart.png"  class = "favImg float-right" style="height:18px; width:18px;">
+        <img v-else src="../assets/fullheart.png" class = "favImg float-right"/>
       </ul>
     </div>
-  </router-link>
-  <img v-if="!recipe.isFavorite" @click="addtofavorits" src="../assets/emptyheart.png"  class = "favImg" style="height:18px; width:18px;">
-      <img v-else src="../assets/fullheart.png" class = "favImg"/>
+      </b-card>
       </div>
 </template>
 
@@ -70,80 +98,9 @@ export default {
 </script>
 
 <style scoped>
-.recipe-preview {
-  display: inline-block;
-  width: 90%;
-  height: 100%;
-  position: relative;
-  margin: 10px 10px;
-}
-.recipe-preview > .recipe-body {
-  width: 100%;
-  height: 200px;
-  position: relative;
-}
-
-.recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  display: block;
-  width: 98%;
-  height: auto;
-  overflow: hidden;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-}
-
-.recipe-preview .recipe-footer {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
-}
-
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
-  width: 100%;
-  font-size: 12pt;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 5px 10px;
-  width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1 auto;
-  -ms-flex: 1 auto;
-  flex: 1 auto;
-  table-layout: fixed;
-  margin-bottom: 0px;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview li {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  width: 90px;
-  display: table-cell;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+.recipe-title{
+  font-family: 'Patrick Hand', cursive;
 }
 .visitedImg
 {
@@ -153,14 +110,26 @@ export default {
 .favImg{
   width:20px;
   height:20px;
+  margin-top: 4px;
+  margin-right: 2px;
 }
 .veganImg{
   width:22px;
   height:28px;
+  margin-bottom: 8px;
 }
 .glutenfreeImg{
   width:22px;
   height:22px;
+}
+.vegetarianImg{
+  width:28px;
+  height:28px;
+}
+.rowtocenter{
+  margin: auto;
+  width: 55%;
+  padding-top: 10px;
 }
 
 </style>

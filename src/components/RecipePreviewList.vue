@@ -4,10 +4,8 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+    <b-row v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -31,7 +29,7 @@ export default {
     };
   },
   mounted() {
-    // this.updateRecipes(); //TODO: remove comment
+    this.updateRecipes(); //TODO: remove comment
   },
   methods: {
     async updateRecipes() {
@@ -53,5 +51,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+}
+.recipePreview{
+  margin: 15px;
 }
 </style>
