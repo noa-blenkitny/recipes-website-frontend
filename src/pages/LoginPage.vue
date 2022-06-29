@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-icon icon="person-circle" aria-hidden="true"></b-icon>
+    <b-icon icon="person-circle" aria-hidden="true" font-scale="4" class="myiconlogin"></b-icon>
     <h1 class="title"><span>Login</span></h1>
     <b-form @submit.prevent="onLogin" class="myformstyle">
       <b-form-group
@@ -40,8 +40,7 @@
       <b-button
         type="submit"
         variant="primary"
-        style="width:100px;display:block;"
-        class="mx-auto w-100"
+        class="mx-auto w-100 myloginbtn"
         >Login</b-button
       >
       <div class="mt-2">
@@ -125,30 +124,45 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
-  margin-top: 8%;
+  margin-top: 6%;
 }
 .myformstyle{
   font-family: "Playfair Display", serif!important;
   font-weight:540;
+  color: rgb(144, 144, 144);
 }
-// .title{
-//   margin-bottom: 10%;
-//   width: 25%;
-//   margin-right: auto;
-//   margin-left: auto;
-
-// }
 h1 {
    width: 100%; 
    text-align: center; 
-   border-bottom: 1px solid #000; 
+   border-bottom: 1px solid rgb(144, 144, 144);
    line-height: 0.1em;
    margin: 10px 0 20px; 
    margin-bottom: 12%;
+   font-family: "Playfair Display", serif!important;
+   font-weight:540;
+   color: rgb(144, 144, 144);
 } 
 
 h1 span { 
     background:rgb(255, 247, 252); 
     padding:0 10px; 
+}
+
+.myiconlogin {
+  margin-bottom: 8%;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  color: rgb(144, 144, 144);
+}
+.myloginbtn{
+  width:100px;
+  display:block;
+  background:rgb(13, 84, 87);
+  border:none;
+}
+.myloginbtn:hover{
+
+  background:rgb(27, 106, 109);
 }
 </style>

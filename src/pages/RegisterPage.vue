@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <h1 class="title">Register</h1>
+    <b-icon icon="pencil" aria-hidden="true" font-scale="2" class="myiconlogin"></b-icon>
+    <h1 class="title"><span>Register</span></h1>
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset" class="myformstyle">
       <b-form-group
         id="input-group-username"
@@ -153,14 +154,19 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-row>
+        <b-col>
+      <b-button type="reset" variant="danger" class="myloginbtn">Reset</b-button>
+      </b-col>
+      <b-col sm="10">
       <b-button
         type="submit"
         variant="primary"
-        style="width:250px;"
-        class="ml-5 w-75"
+        class="ml-5 w-75 myloginbtn onregisterbtn"
         >Register</b-button
       >
+      </b-col>
+      </b-row>
       <div class="mt-2">
         You have an account already?
         <router-link to="login"> Log in here</router-link>
@@ -309,9 +315,47 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+  margin-top: 4px;
 }
 .myformstyle{
   font-family: "Playfair Display", serif!important;
   font-weight:540;
+  color: rgb(144, 144, 144);
+}
+h1 {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid rgb(144, 144, 144);
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+   margin-bottom: 12%;
+   font-family: "Playfair Display", serif!important;
+   font-weight:540;
+   color: rgb(144, 144, 144);
+} 
+
+h1 span { 
+    background:rgb(255, 247, 252); 
+    padding:0 10px; 
+}
+.myiconlogin {
+  margin-bottom: 3%;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  color: rgb(144, 144, 144);
+}
+.myloginbtn{
+  width:100px;
+  display:block;
+  background:rgb(13, 84, 87);
+  border:none;
+}
+.myloginbtn:hover{
+
+  background:rgb(27, 106, 109);
+}
+.onregisterbtn{
+  width: 100%;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+<center>
   <div>
     <div id="about">
       <h1>About Us</h1>
@@ -44,6 +45,7 @@
       </ul>
     </div>
   </div>
+  </center>
 </template>
 
 <script>
@@ -51,7 +53,10 @@ export default {};
 </script>
 
 <style scoped>
-#about {
-  padding-left: 20px;
+#about{
+  margin-top: 4%;
+  font-family: 'Patrick Hand', cursive;
+  color: rgb(13, 84, 87);
 }
+
 </style>
