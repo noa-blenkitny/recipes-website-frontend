@@ -53,5 +53,10 @@ export default {};
 </script>
 
 <style scoped>
+#about{
+  margin-top: 4%;
+  font-family: 'Patrick Hand', cursive;
+  color: rgb(13, 84, 87);
+}
 
 </style>
