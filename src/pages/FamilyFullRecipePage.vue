@@ -4,6 +4,7 @@
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
         <img :src="recipe.image" class="center" />
+        <h3>Summary: {{recipe.summary}}</h3>
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -72,7 +73,7 @@ export default {
       try {
         response = await this.axios.get(
           process.env.VUE_APP_ROOT_API_KEY +
-            "/users/myrecipes/fulldetailes/" +
+            "/users/familyrecipes/fulldetailes/" +
             this.$route.params.recipeId
         );
 
@@ -97,6 +98,7 @@ export default {
         vegan,
         vegetarian,
         glutenFree,
+        summary
       } = response.data[0];
 
       let _analyzedInstructions = analyzedInstructions.split("$$$"); //change to $$$
@@ -111,6 +113,7 @@ export default {
         vegan,
         vegetarian,
         glutenFree,
+        summary
       };
 
       this.recipe = _recipe;

@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  min-height: 100vh;
+}
+// start of NAVBAR
+.myNav {
+  background-color: rgb(13, 84, 87);
+}
+
+.myNavItems {
+  margin-left: 8px;
+  margin-right: 8px;
+  letter-spacing: 1px;
+  font-family: "Playfair Display", serif;
+  color: rgb(235, 235, 235);
+}
+.myNavItems:hover {
+  background-position: bottom center; /*Adjust the background-position to move the line*/
+  background-size: 115% 2px; /*Adjust the background size to control length and height*/
+  background-repeat: no-repeat;
+  background-image: linear-gradient(#a7425d 0 0);
+}
+
+.dropdown-menu {
+  background-color: rgb(125, 180, 182)!important;
+}
+.dropdown-item:hover {
+    background-color: rgb(125, 180, 182)!important;
+    background-image: linear-gradient(#a7425d 0 0);
+    background-repeat: no-repeat;
+    background-position: bottom center; background-size: 100% 2px;
+}
+//maybe make it ligther or even remove comletely and use default style? also now when one of the drop items is active it dissaper
+.router-link-exact-active {
+  color: rgb(125, 180, 182)!important;
+}
+.router-link-exact-active .dropdown-item{
+    color: rgb(125, 180, 182)!important;
+  }
+#logoutBtn
+{
+    background-color: rgb(13, 84, 87);
+    border: none;
+    color: rgb(235, 235, 235);
+    font-size: medium
+}
+
+// end of NAVBAR
+
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-vue/src/index.scss";

@@ -1,29 +1,23 @@
 <template>
   <b-container>
     <h3>
-      {{ title }}:
+      Family Recipes
       <slot></slot>
     </h3>
     <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+      <b-col v-for="r in recipes" :key="r.recipe_id">
+        <FamilyRecipePreview class="FamilyRecipesPreview" :recipe="r" />
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import RecipePreview from "./RecipePreview.vue";
+import FamilyRecipePreview from "./FamilyRecipePreview.vue";
 export default {
-  name: "RecipePreviewList",
+  name: "FamillyRecipePreviewList",
   components: {
-    RecipePreview
-  },
-  props: {
-    title: {
-      type: String,
-      required: true
-    }
+    FamilyRecipePreview
   },
   data() {
     return {
@@ -31,20 +25,14 @@ export default {
     };
   },
   mounted() {
-    // this.updateRecipes(); //TODO:REMOVE COMMENT
+    this.show_family_recipes();
   },
   methods: {
-    async updateRecipes() {
+    async show_family_recipes() {
       try {
         const response = await this.axios.get(
-          process.env.VUE_APP_ROOT_API_KEY + "/users/visited",
-          // "http://localhost:3000/users/visited",
-          { withCredentials: true }
-
+          process.env.VUE_APP_ROOT_API_KEY + "/users/familyrecipes",
         );
-
-        // console.log(response);
-        // const recipes = response.data.recipes;
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
