@@ -47,22 +47,32 @@
           </b-navbar-nav>
 
           <!-- for logged in member- right side btn -->
+
           <b-navbar-nav class="ml-auto" v-if="$root.store.username">
-            <b-nav-text
+            <b-nav-item-dropdown  class="myNavItems" right>
+           <template #button-content>
+            <b-icon icon="person-circle" aria-hidden="true" style="margin-right: 5px;"></b-icon>
+             <b-nav-text
               style="color:rgb(125, 180, 182); font-family: 'Playfair Display', serif;  letter-spacing: 1px;"
             >
-              Hello {{ $root.store.username }}
-            </b-nav-text>
-            <b-nav-form>
-              <b-button
+              {{ $root.store.username }}
+              </b-nav-text>
+            </template>
+            <!-- <b-nav-item logout> -->
+              <b-dropdown-item @click="Logout" class="myDropItem"
+                >Logout</b-dropdown-item>
+              
+              
+              <!-- <b-button
               id="logoutBtn"
                 size="sm"
                 @click="Logout"
                 class="my-2 my-sm-0 myNavItems"
                 type="button"
                 >Logout</b-button
-              >
-            </b-nav-form>
+              > -->
+            <!-- </b-nav-form> -->
+          </b-nav-item-dropdown>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" v-else>
             <b-nav-text
@@ -148,11 +158,11 @@ export default {
 }
 //maybe make it ligther or even remove comletely and use default style? also now when one of the drop items is active it dissaper
 .router-link-exact-active {
-  color: rgb(125, 180, 182)!important;
+  color: white!important;
   // color: white !important;
 }
 .router-link-exact-active .dropdown-item{
-    color: rgb(125, 180, 182)!important;
+    color: white!important;
   }
 #logoutBtn
 {
