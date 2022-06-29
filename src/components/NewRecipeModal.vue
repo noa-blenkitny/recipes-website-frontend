@@ -180,7 +180,6 @@
             <b-col sm="0.5">
               <b-button
                 @click="addNewInstruction"
-                variant="outline-info"
                 class="mb-2 addBtn"
               >
                 <b-icon class="addIcon" icon="plus" aria-hidden="true" ></b-icon>
@@ -410,13 +409,13 @@ export default {
 }
 .addBtn
 {
-   background: rgb(13, 84, 87);
-  border-color: rgb(13, 84, 87);
+   background: rgb(13, 84, 87)!important;
+  border-color: rgb(13, 84, 87)!important;
 }
 .addBtn:hover
 {
-    background: rgb(27, 106, 109);
-  border-color: rgb(27, 106, 109);
+    background: rgb(27, 106, 109)!important;
+  border-color: rgb(27, 106, 109)!important;
   
 }
 
