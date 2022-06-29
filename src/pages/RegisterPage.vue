@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="title">Register</h1>
-    <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+    <b-form @submit.prevent="onRegister" @reset.prevent="onReset" class="myformstyle">
       <b-form-group
         id="input-group-username"
         label-cols-sm="3"
@@ -309,5 +309,9 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+}
+.myformstyle{
+  font-family: "Playfair Display", serif!important;
+  font-weight:540;
 }
 </style>

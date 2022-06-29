@@ -53,6 +53,9 @@ export default {
   min-height: 400px;
 }
 .recipePreview{
-  margin: 15px;
+  margin: 10px;
+}
+h3{
+font-family: 'Patrick Hand', cursive;
 }
 </style>

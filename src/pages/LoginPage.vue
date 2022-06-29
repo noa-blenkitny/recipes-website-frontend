@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">Login</h1>
-    <b-form @submit.prevent="onLogin">
+    <b-icon icon="person-circle" aria-hidden="true"></b-icon>
+    <h1 class="title"><span>Login</span></h1>
+    <b-form @submit.prevent="onLogin" class="myformstyle">
       <b-form-group
         id="input-group-Username"
         label-cols-sm="3"
@@ -124,5 +125,30 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+  margin-top: 8%;
+}
+.myformstyle{
+  font-family: "Playfair Display", serif!important;
+  font-weight:540;
+}
+// .title{
+//   margin-bottom: 10%;
+//   width: 25%;
+//   margin-right: auto;
+//   margin-left: auto;
+
+// }
+h1 {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #000; 
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+   margin-bottom: 12%;
+} 
+
+h1 span { 
+    background:rgb(255, 247, 252); 
+    padding:0 10px; 
 }
 </style>

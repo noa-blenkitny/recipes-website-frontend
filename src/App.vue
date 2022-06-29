@@ -62,16 +62,6 @@
               <b-dropdown-item @click="Logout" class="myDropItem"
                 >Logout</b-dropdown-item>
               
-              
-              <!-- <b-button
-              id="logoutBtn"
-                size="sm"
-                @click="Logout"
-                class="my-2 my-sm-0 myNavItems"
-                type="button"
-                >Logout</b-button
-              > -->
-            <!-- </b-nav-form> -->
           </b-nav-item-dropdown>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto" v-else>
@@ -92,6 +82,7 @@
 
 <script>
 import NewRecipeModal from "./components/NewRecipeModal";
+
 export default {
   name: "App",
   components: {
@@ -121,12 +112,15 @@ export default {
 <style lang="scss" >
 @import "@/scss/form-style.scss";
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  background-color: rgb(255, 247, 252);
+
 }
 // start of NAVBAR
 .myNav {
