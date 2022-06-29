@@ -1,9 +1,10 @@
 <template>
   <b-container>
-    <h3>
+    <h1>
       Family Recipes
+      <img id="familyImg" src="../assets/family.png">
       <slot></slot>
-    </h3>
+    </h1>
     <b-row>
       <b-col v-for="r in recipes" :key="r.recipe_id">
         <FamilyRecipePreview class="FamilyRecipesPreview" :recipe="r" />
@@ -48,5 +49,19 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+}
+h1{
+font-family: 'Patrick Hand', cursive;
+width: 33%;
+margin-right: auto;
+margin-top: 5%;
+margin-bottom: 5%;
+margin-left: auto;
+font-size: 53px;
+}
+#familyImg
+{
+  height: 17%;
+  width: 17%;
 }
 </style>
