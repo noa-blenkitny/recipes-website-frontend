@@ -161,4 +161,13 @@ export default {
 .container {
   min-height: 400px;
 }
+h1{
+font-family: 'Patrick Hand', cursive;
+width: 33%;
+margin-right: auto;
+margin-top: 5%;
+margin-bottom: 5%;
+margin-left: auto;
+font-size: 53px;
+}
 </style>

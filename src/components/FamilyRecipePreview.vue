@@ -8,17 +8,14 @@
   tag="article"
   >
   <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+    :to="{ name: 'familyfullrecipe', params: { recipeId: recipe.recipe_id } }"
     class="recipe-preview"
   >
-  <b-card-img
+    <b-card-img
   :src="recipe.image" class="recipe-image">
   </b-card-img>
-    <!-- <div class="recipe-body">
-      <img :src="recipe.image" class="recipe-image" />
-    </div> -->
-  </router-link>
-      <div class="recipe-footer">
+      </router-link>
+       <div class="recipe-footer">
       <b-card-title :title="recipe.title" class="recipe-title text-center">
         {{ recipe.title }}
       </b-card-title>
@@ -26,6 +23,7 @@
         <b-row>
           <b-col>
             <b-icon icon="clock"></b-icon>
+
         {{ recipe.readyInMinutes }} <span style="font-size: 10px;"> minutes
         </span>
         </b-col>
@@ -45,56 +43,22 @@
         <img v-if="recipe.glutenFree" src="../assets/glutenfree.png" class = "glutenfreeImg"/>
         </b-col>
         </b-row>
-        
-        <img v-if="recipe.isVisited" src="../assets/eye.png" class = "visitedImg float-right" />
-        <img v-if="!recipe.isFavorite" @click="addtofavorits" src="../assets/emptyheart.png"  class = "favImg float-right" style="height:18px; width:18px;">
-        <img v-else src="../assets/fullheart.png" class = "favImg float-right"/>
       </ul>
-    </div>
-      </b-card>
+       </div>
+       </b-card>
       </div>
 </template>
 
 <script>
 export default {
-
   props: {
     recipe: {
       type: Object,
       required: true
     }
-,
-// created() {
-//         this.$root.$refs.RecipePreview = this;
-//     },
-  },methods:
-  {
-    async addtofavorits(){
-      
-       if(!this.$root.store.username){
-          alert("you should loged in first")
-       }
-       else{
-        try {
-        const response = await this.axios.post(
-          // "http://localhost:3000/recipes/random",
-          process.env.VUE_APP_ROOT_API_KEY + "/users/favorites",
-          // this.$root.store.server_domain + "/recipes/random",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        {
-            recipeId: this.recipe.id,
-          }
-        );
-        this.recipe.isFavorite = true;
-       }
-        catch (error) {
-        console.log(error);
-      }
-    }
   }
-  }
+  };
   
-};
 </script>
 
 <style scoped>

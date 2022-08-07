@@ -1,6 +1,10 @@
 <template>
-  <div>
     <div id="about">
+      <b-row class="myrow" no-gutters>
+      <b-col class="timmon" sm="5">
+        <img id="timmonpic" src="../assets/timmon.png">
+        </b-col>
+      <b-col class="aboutbody">
       <h1>About Us</h1>
       <p>
         We are two 3rd year Information System engineering sutdents in Ben
@@ -25,24 +29,27 @@
       <ul>
         <li>
           A Personal Website about someone form the third age:
+          <br>
           <a
             href="https://web-development-environments-2022.github.io/318364122/"
             >link
           </a>
+          <br>
           <a
             href="https://web-development-environments-2022.github.io/205973837/"
             >link
           </a>
         </li>
         <li>
-          An Online Pacman Computer Game
+          An Online Pacman Computer Game:
           <a
             href="https://web-development-environments-2022.github.io/assignment2-318364122_205973837/"
             >link
           </a>
         </li>
       </ul>
-    </div>
+      </b-col>
+      </b-row>
   </div>
 </template>
 
@@ -51,7 +58,22 @@ export default {};
 </script>
 
 <style scoped>
-#about {
-  padding-left: 20px;
+#about{
+  margin-top: 4%;
+  font-family: 'Patrick Hand', cursive;
+  color: rgb(13, 84, 87);
 }
+#timmonpic{
+  width: 60%;
+  height: 110%;
+  margin-left: 25%;
+}
+h1{
+  margin-bottom: 3%;
+}
+.aboutbody{
+  font-size: 18px;
+}
+
+
 </style>

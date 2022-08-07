@@ -2,14 +2,19 @@
   <div>
     <b-nav-item v-b-modal.modal-prevent-closing>New Recipe</b-nav-item>
     <b-modal
+      modal-class="newRecipeModal"
       id="modal-prevent-closing"
       ref="modal"
       title="Create A New Recipe"
       @show="resetModal"
       @hidden="resetModal"
       @ok="handleOk"
-      >Hello From Modal!
-      <b-form ref="form" @submit.stop.prevent="handleSubmit">
+    >
+      <b-form
+        class="myModalForm"
+        ref="form"
+        @submit.stop.prevent="handleSubmit"
+      >
         <!-- Title -->
         <b-form-group
           id="input-group-Title"
@@ -120,15 +125,15 @@
               >
                 Ingredients is required
               </b-form-invalid-feedback>
-              
             </b-col>
             <b-col sm="0.5">
               <b-button
                 @click="addNewIngredient"
-                variant="outline-info"
-                class="mb-2"
+                
+                class="mb-2 addBtn"
+
               >
-                <b-icon icon="plus" aria-hidden="true"></b-icon>
+                <b-icon class="addIcon" icon="plus" aria-hidden="true" ></b-icon>
               </b-button>
             </b-col>
           </b-row>
@@ -142,23 +147,64 @@
               id="ingredients_input"
               v-model="item.name"
               type="text"
-              
+              :state="item.name.length <= 0 ? false : true"
             ></b-form-input>
-
-            <!-- <b-form-invalid-feedback v-if="!name.required">
+            <b-form-invalid-feedback v-if="item.name.length <= 0">
               Ingredients is required
             </b-form-invalid-feedback>
-            <b-form-invalid-feedback v-if="!name.alphaNum">
-              must contain only alpha numeric characters
-            </b-form-invalid-feedback> -->
-     
           </div>
         </b-form-group>
 
+        <!-- instructions -->
         <b-form-group
-          label="Plain inline checkboxes"
-          v-slot="{ ariaDescribedby }"
+          id="input-group-instructions"
+          label-cols-sm="3"
+          label="Instructions:"
+          label-for="instructions_input"
         >
+          <b-row class="my-1">
+            <b-col sm="10">
+              <b-form-input
+                id="instructions_input"
+                v-model="$v.form.instructions_input.$model"
+                type="text"
+                :state="validateState('instructions_input')"
+              ></b-form-input>
+
+              <b-form-invalid-feedback
+                v-if="!$v.form.instructions_input.required"
+              >
+                Instructions is required
+              </b-form-invalid-feedback>
+            </b-col>
+            <b-col sm="0.5">
+              <b-button
+                @click="addNewInstruction"
+                class="mb-2 addBtn"
+              >
+                <b-icon class="addIcon" icon="plus" aria-hidden="true" ></b-icon>
+              </b-button>
+            </b-col>
+          </b-row>
+          <div
+            class="previous"
+            v-for="(item, counter) in instructions"
+            v-bind:key="counter"
+          >
+            <span @click="deleteInstruction(counter)">x</span>
+            <b-form-input
+              id="instructions_input"
+              v-model="item.name"
+              type="text"
+              :state="item.name.length <= 0 ? false : true"
+            ></b-form-input>
+            <b-form-invalid-feedback v-if="item.name.length <= 0">
+              Instructions is required
+            </b-form-invalid-feedback>
+          </div>
+        </b-form-group>
+
+        <b-form-group label="" v-slot="{ ariaDescribedby }">
           <b-form-checkbox-group
             v-model="selected"
             :options="options"
@@ -187,11 +233,9 @@ import {
   minValue,
   url,
   alpha,
-  alphaNum,
-  
 } from "vuelidate/lib/validators";
 export default {
-    // components: {useVuelidate, reactive, helpers},
+  // components: {useVuelidate, reactive, helpers},
   data() {
     return {
       form: {
@@ -200,8 +244,10 @@ export default {
         image: "",
         servings: "",
         ingredients_input: "",
+        instructions_input: "",
       },
       ingridients: [],
+      instructions: [],
       selected: [],
       options: [
         { text: "Vegan", value: "vegan" },
@@ -236,16 +282,25 @@ export default {
       ingredients_input: {
         required,
       },
-      
+      instructions_input: {
+        required,
+      },
     },
   },
   methods: {
     addNewIngredient() {
-      this.ingridients.push({name:''});
+      this.ingridients.push({ name: "" });
     },
-    deleteIngredient(counter){
-        this.ingridients.splice(counter,1);
-        console.log(this.ingridients);
+    addNewInstruction() {
+      this.instructions.push({ name: "" });
+    },
+    deleteIngredient(counter) {
+      this.ingridients.splice(counter, 1);
+      console.log(this.ingridients);
+    },
+    deleteInstruction(counter) {
+      this.instructions.splice(counter, 1);
+      console.log(this.instructions);
     },
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
@@ -259,8 +314,10 @@ export default {
         image: "",
         servings: "",
         ingredients_input: "",
+        instructions_input: "",
       };
       this.ingridients = [];
+      this.instructions = [];
       this.selected = [];
       this.$nextTick(() => {
         this.$v.$reset();
@@ -273,14 +330,58 @@ export default {
       this.handleSubmit();
     },
 
-    handleSubmit() {
+    async handleSubmit() {
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      ////////////////logic///////////
+      for (let index = 0; index < this.ingridients.length; index++) {
+        let dict = this.ingridients[index];
+        if (dict.name.length <= 0) return;
+      }
+      for (let i = 0; i < this.instructions.length; i++) {
+        let dict_ins = this.instructions[i];
+        if (dict_ins.name.length <= 0) return;
+      }
 
-      // Hide the modal manually
+      ////////////////logic///////////
+      try {
+        let exIng;
+        if (this.ingridients.length > 0) {
+          let arrayOfIngNames = this.ingridients.map((ing) => ing.name);
+          let allIng = arrayOfIngNames.join("$$$");
+          exIng = this.form.ingredients_input + "$$$" + allIng;
+        } else {
+          exIng = this.form.ingredients_input;
+        }
+        let analyzedIns;
+        if (this.instructions.length > 0) {
+          let arrayOfInsNames = this.instructions.map((ins) => ins.name);
+          let allIns = arrayOfInsNames.join("$$$");
+          analyzedIns = this.form.instructions_input + "$$$" + allIns;
+        } else {
+          analyzedIns = this.form.instructions_input;
+        }
+        const response = await this.axios.post(
+          process.env.VUE_APP_ROOT_API_KEY + "/users/createrecipe",
+          {
+            title: this.form.title,
+            readyInMinutes: this.form.minutes,
+            image: this.form.image,
+            popularity: "0",
+            vegan: this.selected.includes("vegan") ? "1" : "0",
+            vegetarian: this.selected.includes("vegetarian") ? "1" : "0",
+            glutenFree: this.selected.includes("glutenFree") ? "1" : "0",
+            extendedIngredients: exIng,
+            servings: this.form.servings,
+            analyzedInstructions: analyzedIns,
+          }
+        );
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
+
       this.$nextTick(() => {
         this.$bvModal.hide("modal-prevent-closing");
       });
@@ -288,4 +389,38 @@ export default {
   },
 };
 </script>
-<style></style>
+<style lang="scss">
+.newRecipeModal {
+  font-family: "Patrick Hand", cursive !important;
+  letter-spacing: 1px;
+}
+.newRecipeModal .btn-primary {
+  // font-size: 20px;
+  width: 18%;
+  background: rgb(13, 84, 87);
+  border-color: rgb(13, 84, 87);
+}
+.newRecipeModal .btn-primary:hover {
+  background: rgb(27, 106, 109);
+  border-color: rgb(27, 106, 109);
+}
+.newRecipeModal button {
+  letter-spacing: 3px;
+}
+.addBtn
+{
+   background: rgb(13, 84, 87)!important;
+  border-color: rgb(13, 84, 87)!important;
+}
+.addBtn:hover
+{
+    background: rgb(27, 106, 109)!important;
+  border-color: rgb(27, 106, 109)!important;
+  
+}
+
+.addIcon
+{
+  color:white;
+}
+</style>
