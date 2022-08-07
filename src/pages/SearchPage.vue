@@ -186,7 +186,7 @@ export default {
       value_diet: [],
       value_cuisine: [],
       value_intolerance: [],
-      value_sort: [],
+      value_sort: "",
       cuisines: [
         { name: "African" },
         { name: "American" },
@@ -263,7 +263,7 @@ export default {
           value_sort: this.value_sort,
           value_number: this.value_number,
         };
-
+        alert(this.value_sort)
         if (recentSearch != null) {
           sessionStorage.removeItem("recentSearch");
 

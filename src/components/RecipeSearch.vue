@@ -1,15 +1,14 @@
 <template>
   <b-container v-if="hasResults">
-    <b-row >
-      <b-col v-for="r in recipes" :key="r.id">
+    <b-row v-for="(recipesList, index) in all_recipes" :key="index">
+      <b-col v-for="r in recipesList" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
   </b-container>
   <b-container v-else>
-    <p> no results found!</p>
-    </b-container>
-
+    <p>no results found!</p>
+  </b-container>
 </template>
 
 <script>
@@ -22,7 +21,8 @@ export default {
   data() {
     return {
       recipes: [],
-      hasResults:true
+      all_recipes: [],
+      hasResults: true,
     };
   },
   props: {
@@ -36,7 +36,7 @@ export default {
       type: Array,
     },
     value_sort: {
-      type: Array,
+      type: String,
     },
     value_number: {
       type: Number,
@@ -47,63 +47,66 @@ export default {
     },
   },
   computed: {
-    final_value_sort:{
-      get()
-      {
-        if (this.value_sort.length > 0) {
-          return this.value_sort[0];
+    final_value_sort: {
+      get() {
+        if (this.value_sort!== "") {
+          return this.value_sort;
         } else {
           return "";
         }
-            
+
         // return this.value_sort;
-        
-      }
+      },
     },
-    final_value_cuisine:
-    {
-      get()
-      {
+    final_value_cuisine: {
+      get() {
         if (this.value_cuisine.length > 0) {
-          return (this.value_cuisine.map(
-            (element) => element.name
-          )).join();
-        }
-        else {
+          return this.value_cuisine.map((element) => element.name).join();
+        } else {
           return "";
         }
-      }
+      },
     },
-      final_value_diet:
-    {
-      get()
-      {
+    final_value_diet: {
+      get() {
         if (this.value_diet.length > 0) {
-          return (this.value_diet.map(
-            (element) => element.name
-          )).join();
-        }
-        else {
+          return this.value_diet.map((element) => element.name).join();
+        } else {
           return "";
         }
-      }
-    },   
-    final_value_intolerance:
-    {
-      get()
-      {
+      },
+    },
+    final_value_intolerance: {
+      get() {
         if (this.value_intolerance.length > 0) {
-          return (this.value_intolerance.map(
-            (element) => element.name
-          )).join();
-        }
-        else {
+          return this.value_intolerance.map((element) => element.name).join();
+        } else {
           return "";
         }
-      }
+      },
     },
   },
   methods: {
+    calcAllRecipes()
+    {
+      this.all_recipes = [];
+      let counter = 0;
+      let groupOf3 = [];
+      for (let index = 0; index < this.recipes.length; index++) {
+          if (counter ==2 || index === this.recipes.length - 1){
+            groupOf3.push(this.recipes[index]);
+            this.all_recipes.push(groupOf3);
+            groupOf3 = [];
+            counter = 0;
+          }
+          else
+          {
+            groupOf3.push(this.recipes[index]);
+            counter++;
+          }
+        
+      }
+    },
     async updateRecipes() {
       try {
         const response = await this.axios.get(
@@ -121,31 +124,19 @@ export default {
             this.final_value_intolerance +
             "&sort=" +
             this.final_value_sort
-          //   {
-          // //     params: { searchQuery: this.text,
-          // //         num: this.value_number,
-          // //         cuisine: this.value_cuisine,
-          // //         diet: this.value_diet,
-          // //         intolerances: this.value_intolerance,
-          // //         sort: this.value_sort
-          // //   }
-          //   }
-          // this.$root.store.server_domain + "/recipes/random",
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
+                 );
 
-        // console.log(response);
+        // alert(this.value_sort[0]);
         // const recipes = response.data.recipes;
         const recipes = response.data;
-        
+
         this.recipes = [];
+        this.all_recipes = [];
         this.recipes.push(...recipes);
-        if(recipes.length > 0)
-        {
+        if (recipes.length > 0) {
           this.hasResults = true;
-        }
-        else
-        {
+          this.calcAllRecipes();
+        } else {
           this.hasResults = false;
         }
         // console.log(this.recipes);
@@ -161,13 +152,13 @@ export default {
 .container {
   min-height: 400px;
 }
-h1{
-font-family: 'Patrick Hand', cursive;
-width: 33%;
-margin-right: auto;
-margin-top: 5%;
-margin-bottom: 5%;
-margin-left: auto;
-font-size: 53px;
+h1 {
+  font-family: "Patrick Hand", cursive;
+  width: 33%;
+  margin-right: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: auto;
+  font-size: 53px;
 }
 </style>

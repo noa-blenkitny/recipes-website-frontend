@@ -29,11 +29,7 @@ export default {
   mounted() {
     this.show_my_recipes();
   },
-  // computed:
-  // {
-  //   all_recipes:
 
-  // },
   methods: {
     async show_my_recipes() {
       try {
