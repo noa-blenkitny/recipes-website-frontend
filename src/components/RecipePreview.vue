@@ -72,7 +72,7 @@ export default {
     async addtofavorits(){
       
        if(!this.$root.store.username){
-          alert("you should loged in first")
+          alert("you should log in first")
        }
        else{
         try {

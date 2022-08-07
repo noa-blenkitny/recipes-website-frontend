@@ -32,19 +32,19 @@
           <br>
           <a
             href="https://web-development-environments-2022.github.io/318364122/"
-            >link
+            >Noa's site
           </a>
           <br>
           <a
             href="https://web-development-environments-2022.github.io/205973837/"
-            >link
+            >Bar's site
           </a>
         </li>
         <li>
           An Online Pacman Computer Game:
           <a
             href="https://web-development-environments-2022.github.io/assignment2-318364122_205973837/"
-            >link
+            >Pacman game
           </a>
         </li>
       </ul>

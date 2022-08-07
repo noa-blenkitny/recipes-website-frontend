@@ -27,7 +27,7 @@
             </b-col>
             <b-col>
               <b-icon icon="hand-thumbs-up"></b-icon>
-              {{ recipe.popularity }}
+              {{ recipe.aggregateLikes }}
               <span style="font-size: 10px;">likes </span>
             </b-col>
           </b-row>

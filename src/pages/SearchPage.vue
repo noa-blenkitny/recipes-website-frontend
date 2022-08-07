@@ -153,7 +153,7 @@
       </b-alert>
     </div>
     <!-- search result -->
-    <div id="searchDiv">
+    <div id="searchDiv" style="margin-top:40px;">
       <b-row>
         <RecipeSearch
           class="recipeSearch"
@@ -170,14 +170,14 @@
 </template>
 
 <script>
-// import Multiselect from "vue-multiselect";
+import Multiselect from "vue-multiselect";
 import RecipeSearch from "../components/RecipeSearch";
 //import diets from "../assets/diets";
 import { required, alpha } from "vuelidate/lib/validators";
 
 export default {
   components: {
-    // Multiselect,
+    Multiselect,
     RecipeSearch,
   },
   data() {
@@ -343,6 +343,10 @@ font-size: 53px;
   color: white;
   font-family: 'Patrick Hand', cursive;
   letter-spacing: 1px;
+  margin-right: 5px;
+  padding-right: 40px;
+  padding-left: 40px;
+
 
 }
 .mysearchbtn:hover{
