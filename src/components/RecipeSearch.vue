@@ -49,8 +49,8 @@ export default {
   computed: {
     final_value_sort: {
       get() {
-        if (this.value_sort!== "") {
-          return this.value_sort;
+        if (this.value_sort!== null) {
+          return this.value_sort.name;
         } else {
           return "";
         }

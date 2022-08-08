@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">Search Page
-    <b-icon icon="search"></b-icon>
+    <h1 class="title">
+      Search Page
+      <b-icon icon="search"></b-icon>
     </h1>
     <!-- diet div -->
     <div>
@@ -15,6 +16,7 @@
         placeholder="Diet"
         label="name"
         track-by="name"
+        id="dietInputMulti"
       >
         <template slot="selection" slot-scope="{ isOpen }"
           ><span
@@ -24,6 +26,11 @@
           ></template
         >
       </multiselect>
+      <b-tooltip
+        target="dietInputMulti"
+        title="retrieve recipes with at least one of the selected diets"
+        variant="light"
+      ></b-tooltip>
       <br />
       <!-- <pre class="language-json"><code></code></pre> -->
     </div>
@@ -40,6 +47,7 @@
         placeholder="Cuisine"
         label="name"
         track-by="name"
+        id="cuisineInputMulti"
       >
         <template slot="selection" slot-scope="{ isOpen }"
           ><span
@@ -49,6 +57,12 @@
           ></template
         >
       </multiselect>
+      <b-tooltip
+        target="cuisineInputMulti"
+        title="retrieve recipes with at least one of the selected cuisines"
+        variant="light"
+      ></b-tooltip>
+
       <br />
       <!-- <pre class="language-json"><code></code></pre> -->
     </div>
@@ -65,8 +79,9 @@
         placeholder="Intolerance"
         label="name"
         track-by="name"
+        id="intoleranceInputMulti"
       >
-        <template slot="selection" slot-scope="{  isOpen }"
+        <template slot="selection" slot-scope="{ isOpen }"
           ><span
             class="multiselect__single"
             v-if="value_intolerance.length &amp;&amp; !isOpen"
@@ -74,6 +89,11 @@
           ></template
         >
       </multiselect>
+      <b-tooltip
+        target="intoleranceInputMulti"
+        title="retrieve recipes without the selected intolerances in the recipes"
+        variant="light"
+      ></b-tooltip>
       <br />
       <!-- <pre class="language-json"><code></code></pre> -->
     </div>
@@ -83,21 +103,20 @@
       <multiselect
         v-model="value_sort"
         :options="sorts"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
+        :show-labels="false"
         placeholder="Sort by"
         label="name"
         track-by="name"
       >
-        <template slot="selection" slot-scope="{  values, isOpen }"
+        <!-- <template slot="selection" slot-scope="{  values, isOpen }"
           ><span
-            class="multiselect__single"
-            v-if="values.length &amp;&amp; !isOpen"
-            >{{ values }} sort selected</span
-          ></template
+            class="multiselect__single">
+            {{value_sort}}
+            </span>
+          ></template -->
         >
       </multiselect>
+
       <!-- <pre class="language-json"><code></code></pre> -->
     </div>
 
@@ -137,7 +156,13 @@
               <b-button class="mysearchbtn" type="submit">Search</b-button>
             </b-col>
             <b-col sm="0.5">
-              <b-button v-if="hasRecentSearch" @click="showRecentSearch" variant="outline-secondary" type="button">Show Recent Search</b-button>
+              <b-button
+                v-if="hasRecentSearch"
+                @click="showRecentSearch"
+                variant="outline-secondary"
+                type="button"
+                >Show Recent Search</b-button
+              >
             </b-col>
           </b-row>
         </b-form-group>
@@ -263,12 +288,13 @@ export default {
           value_sort: this.value_sort,
           value_number: this.value_number,
         };
-        alert(this.value_sort)
         if (recentSearch != null) {
           sessionStorage.removeItem("recentSearch");
-
         }
-        sessionStorage.setItem("recentSearch", JSON.stringify(recentSearchParams));
+        sessionStorage.setItem(
+          "recentSearch",
+          JSON.stringify(recentSearchParams)
+        );
         this.hasRecentSearch = true;
         return await this.$children[6].updateRecipes();
       } catch {
@@ -287,30 +313,25 @@ export default {
       }
       this.SearcgRecipes();
     },
-    showRecentSearch()
-    {
-      try{
-        
-      let recentSearch = JSON.parse(sessionStorage.getItem("recentSearch"));
-      this.value_diet= recentSearch.value_diet;
-      this.value_cuisine= recentSearch.value_cuisine;
-      this.value_intolerance= recentSearch.value_intolerance;
-      this.value_sort= recentSearch.value_sort;
-      this.value_number= recentSearch.value_number;
-      this.$v.form.text.$model = recentSearch.text;
-      }
-      catch
-      {
+    showRecentSearch() {
+      try {
+        let recentSearch = JSON.parse(sessionStorage.getItem("recentSearch"));
+        this.value_diet = recentSearch.value_diet;
+        this.value_cuisine = recentSearch.value_cuisine;
+        this.value_intolerance = recentSearch.value_intolerance;
+        this.value_sort = recentSearch.value_sort;
+        this.value_number = recentSearch.value_number;
+        this.$v.form.text.$model = recentSearch.text;
+      } catch {
         console.log("in catch");
       }
-    }
+    },
   },
   mounted() {
     let recentSearch = sessionStorage.getItem("recentSearch");
     if (recentSearch != null) {
       this.hasRecentSearch = true;
-    }
-    else{
+    } else {
       this.hasRecentSearch = false;
     }
     // console.log(this.$children)
@@ -318,48 +339,41 @@ export default {
   validations: {
     form: {
       text: {
-        required
+        required,
       },
     },
   },
 };
 </script>
 
-
-
- <style src="vue-multiselect/dist/vue-multiselect.min.css">
-</style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-h1{
-width: 33%;
-margin-right: auto;
-margin-top: 5%;
-margin-bottom: 5%;
-margin-left: auto;
-font-size: 53px;
+h1 {
+  width: 33%;
+  margin-right: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: auto;
+  font-size: 53px;
 }
-.mysearchbtn{
+.mysearchbtn {
   background: rgb(13, 84, 87);
   color: white;
-  font-family: 'Patrick Hand', cursive;
+  font-family: "Patrick Hand", cursive;
   letter-spacing: 1px;
   margin-right: 5px;
   padding-right: 40px;
   padding-left: 40px;
-
-
 }
-.mysearchbtn:hover{
+.mysearchbtn:hover {
   background-color: rgb(25, 103, 105);
-
 }
-.number_label{
+.number_label {
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
-.container{
-  font-family: 'Patrick Hand', cursive!important;
+.container {
+  font-family: "Patrick Hand", cursive !important;
   letter-spacing: 1px;
 }
-
 </style>

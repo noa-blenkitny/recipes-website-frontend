@@ -70,9 +70,11 @@ export default {};
 }
 h1{
   margin-bottom: 3%;
+  text-align: left;
+  margin-top:7%;
 }
 .aboutbody{
-  font-size: 18px;
+  font-size: 20px;
 }
 
 

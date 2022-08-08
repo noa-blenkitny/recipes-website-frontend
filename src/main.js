@@ -31,7 +31,8 @@ import {
   FormSpinbuttonPlugin,
   IconsPlugin,
   ModalPlugin ,
-  FormCheckboxPlugin 
+  FormCheckboxPlugin,
+  TooltipPlugin  
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -47,7 +48,8 @@ import {
   FormSpinbuttonPlugin,
   IconsPlugin,
   ModalPlugin,
-  FormCheckboxPlugin 
+  FormCheckboxPlugin,
+  TooltipPlugin  
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
