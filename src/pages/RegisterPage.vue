@@ -156,13 +156,12 @@
 
       <b-row>
         <b-col>
-      <b-button type="reset" variant="danger" class="myloginbtn">Reset</b-button>
+      <b-button type="reset" class="myloginbtn">Reset</b-button>
       </b-col>
       <b-col sm="10">
       <b-button
         type="submit"
-        variant="primary"
-        class="ml-5 w-75 myloginbtn onregisterbtn"
+        class="ml-5 w-50 myloginbtn onregisterbtn"
         >Register</b-button
       >
       </b-col>
@@ -339,14 +338,14 @@ h1 span {
     padding:0 10px; 
 }
 .myiconlogin {
-  margin-bottom: 3%;
+  margin-bottom: 4%;
   width: 100%;
   margin-right: auto;
   margin-left: auto;
   color: rgb(144, 144, 144);
 }
 .myloginbtn{
-  width:100px;
+  width: 100px;
   display:block;
   background:rgb(13, 84, 87);
   border:none;

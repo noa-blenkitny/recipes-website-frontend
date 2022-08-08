@@ -7,7 +7,7 @@
     </b-row>
   </b-container>
   <b-container v-else>
-    <p>no results found!</p>
+    <p class="noresults">no results found!</p>
   </b-container>
 </template>
 
@@ -160,5 +160,14 @@ h1 {
   margin-bottom: 5%;
   margin-left: auto;
   font-size: 53px;
+}
+.noresults{
+  font-family: "Patrick Hand", cursive;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5%;
+  text-align: center;
+  color: rgb(144, 144, 144);
+  font-size: 25px;
 }
 </style>

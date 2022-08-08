@@ -5,11 +5,18 @@
       <img id="familyImg" src="../assets/family.png">
       <slot></slot>
     </h1>
+    <div v-if="recipes.length!=0">
     <b-row>
       <b-col v-for="r in recipes" :key="r.recipe_id">
         <FamilyRecipePreview class="FamilyRecipesPreview" :recipe="r" />
       </b-col>
     </b-row>
+    </div>
+    <div v-else>
+      <h3>
+        You have no family recipes...
+      </h3>
+    </div>
   </b-container>
 </template>
 
@@ -63,5 +70,13 @@ font-size: 53px;
 {
   height: 17%;
   width: 17%;
+}
+h3 {
+  font-family: "Patrick Hand", cursive;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 17%;
+  text-align: center;
+  color: rgb(144, 144, 144);
 }
 </style>

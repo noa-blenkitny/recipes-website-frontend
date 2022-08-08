@@ -7,11 +7,21 @@
     </h1>
     
     <br>
+    <div v-if="show_recipes">
     <b-row v-for="(recipesList, index) in all_recipes" :key="index">
       <b-col v-for="r in recipesList" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
+    </div>
+    <div v-else>
+      <h3>
+        You have no favorites recipes yet...
+        <br />
+        <br />
+        To add a favorite recipe click the heart icon on the recipe preview/recipe page
+      </h3>
+    </div>
   </b-container>
 </template>
 
@@ -26,6 +36,7 @@ export default {
     return {
       recipes: [],
       all_recipes: [],
+      show_recipes: true,
     };
   },
   mounted() {
@@ -47,6 +58,12 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
          this.calcAllRecipes();
+         if(this.recipes.length>0){
+          this.show_recipes=true;
+         }
+         else{
+          this.show_recipes=false;
+         }
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);
@@ -95,5 +112,13 @@ font-size: 53px;
 {
   height: 25%;
   width: 25%;
+}
+h3 {
+  font-family: "Patrick Hand", cursive;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 17%;
+  text-align: center;
+  color: rgb(144, 144, 144);
 }
 </style>

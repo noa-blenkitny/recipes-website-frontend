@@ -5,7 +5,7 @@
       <img id="hatImg" src="../assets/hat.png" />
       <slot></slot>
     </h1>
-    <div v-if="all_recipes.length > 0">
+    <div v-if="bool_show_my_recipes">
       <b-row v-for="(recipesList, index) in all_recipes" :key="index">
         <b-col v-for="r in recipesList" :key="r.recipe_id">
           <MyRecipesPreview class="MyRecipesPreview" :recipe="r" />
@@ -34,6 +34,7 @@ export default {
     return {
       recipes: [],
       all_recipes: [],
+      bool_show_my_recipes: true,
     };
   },
   mounted() {
@@ -50,6 +51,12 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
         this.calcAllRecipes();
+        if(this.recipes.length > 0){
+          this.bool_show_my_recipes = true;
+        }
+        else{
+          this.bool_show_my_recipes = false;
+        }
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);

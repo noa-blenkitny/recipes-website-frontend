@@ -296,7 +296,7 @@ export default {
           JSON.stringify(recentSearchParams)
         );
         this.hasRecentSearch = true;
-        return await this.$children[6].updateRecipes();
+        return await this.$children[9].updateRecipes();
       } catch {
         this.form.submitError = err.response.data.message;
       }
@@ -334,7 +334,7 @@ export default {
     } else {
       this.hasRecentSearch = false;
     }
-    // console.log(this.$children)
+     //console.log(this.$children)
   },
   validations: {
     form: {
@@ -361,9 +361,9 @@ h1 {
   color: white;
   font-family: "Patrick Hand", cursive;
   letter-spacing: 1px;
-  margin-right: 5px;
-  padding-right: 40px;
-  padding-left: 40px;
+  margin-right: 10px;
+  padding-right: 37.5px;
+  padding-left: 37.5px;
 }
 .mysearchbtn:hover {
   background-color: rgb(25, 103, 105);
