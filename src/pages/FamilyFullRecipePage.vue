@@ -1,5 +1,5 @@
 <template>
-  <div class="container_fuulpage">
+  <div class="container">
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
@@ -66,12 +66,6 @@
             </ol>
             </b-col>
              </b-row>>
-   
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -143,7 +137,7 @@ export default {
 </script>
 
 <style scoped>
-.container_fuulpage{
+.container{
 margin-top: 3%;
 font-family: 'Patrick Hand', cursive;
 font-size: 20px;
@@ -181,12 +175,12 @@ font-size: 20px;
   height: 22px;
 }
 h1{
-  margin-left: 5%;
+  margin-left: 2%;
   font-size: 50px;
 }
 .recipe_body{
   margin-top: 3%;
-  margin-left: 5%;
+  margin-left: 2%;
 }
 .instructions{
   margin-right: 3%;

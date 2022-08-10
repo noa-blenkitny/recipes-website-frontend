@@ -1,9 +1,9 @@
 <template>
-  <div class="container_fuulpage">
+  <div class="container">
     <div v-if="recipe">
       
       
-      <div class="recipe-header mt-3 mb-4">
+      <div>
         <h1 >{{ recipe.title }}</h1>
       </div>
       <b-row no-gutters>
@@ -135,22 +135,10 @@ export default {
 </script>
 
 <style scoped>
-/* .wrapper {
-  display: flex;
-}
-.wrapped {
-  width: 100%;
-}
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-} */
-.container_fuulpage{
-margin-top: 3%;
-font-family: 'Patrick Hand', cursive;
-font-size: 20px;
+.container{
+  margin-top: 3%;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 20px;
 }
 .recipeimg{
   display: block;
@@ -188,12 +176,13 @@ font-size: 20px;
   height: 22px;
 }
 h1{
-  margin-left: 5%;
-  font-size: 50px;
+  margin-left: 2%;
+  margin-top: 5px;
+  margin-bottom: 4%;
 }
 .recipe_body{
   margin-top: 3%;
-  margin-left: 5%;
+  margin-left: 2%;
 }
 .instructions{
   margin-right: 3%;

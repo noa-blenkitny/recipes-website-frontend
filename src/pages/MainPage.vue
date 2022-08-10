@@ -3,7 +3,7 @@
     <b-row>
       <b-col class="align-middle">
     <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" />
-    <button @click="clickgenerateRandomRecipes" class="randBtn">Random</button>
+    <b-button @click="clickgenerateRandomRecipes" class="randBtn">Random</b-button>
     </b-col>
     <!-- <router-link v to="/login" tag="button">You need to Login to vue this</router-link> -->
     <b-col>
@@ -60,7 +60,6 @@ export default {
 .randBtn{
   background-color: rgb(13, 84, 87);
   color: white;
-  border-radius: 6px;
   padding: 12px 28px;
   border: none;
   font-family: "Playfair Display", serif;

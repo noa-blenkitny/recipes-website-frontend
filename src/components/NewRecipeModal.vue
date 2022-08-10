@@ -4,6 +4,7 @@
     <b-modal
       modal-class="newRecipeModal"
       id="modal-prevent-closing"
+      size="lg"
       ref="modal"
       title="Create A New Recipe"
       @show="resetModal"
@@ -30,9 +31,6 @@
           ></b-form-input>
           <b-form-invalid-feedback v-if="!$v.form.title.required">
             Title is required
-          </b-form-invalid-feedback>
-          <b-form-invalid-feedback v-if="!$v.form.title.alpha">
-            should contain only characters
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -142,7 +140,7 @@
             v-for="(item, counter) in ingridients"
             v-bind:key="counter"
           >
-            <span @click="deleteIngredient(counter)">x</span>
+            <span class="mymodalcancel" @click="deleteIngredient(counter)">x</span>
             <b-form-input
               id="ingredients_input"
               v-model="item.name"
@@ -191,7 +189,7 @@
             v-for="(item, counter) in instructions"
             v-bind:key="counter"
           >
-            <span @click="deleteInstruction(counter)">x</span>
+            <span class="mymodalcancel" @click="deleteInstruction(counter)">x</span>
             <b-form-input
               id="instructions_input"
               v-model="item.name"
@@ -263,7 +261,6 @@ export default {
     form: {
       title: {
         required,
-        alpha,
       },
       minutes: {
         required,
@@ -422,5 +419,8 @@ export default {
 .addIcon
 {
   color:white;
+}
+.mymodalcancel:hover{
+  cursor: pointer;
 }
 </style>

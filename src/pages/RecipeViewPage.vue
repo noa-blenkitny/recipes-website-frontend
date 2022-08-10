@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-if="recipe">
-      <div class="recipe-header mt-3 mb-4">
+      <div class="mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
         </div>
         <b-row no-gutters>
@@ -237,12 +237,13 @@ export default {
   height:22px;
 }
 h1{
-  margin-left: 5%;
-  font-size: 50px;
+  margin-left: 2%;
+  margin-top: 5px;
+  margin-bottom: 4%;
 }
 .recipe_body{
   margin-top: 3%;
-  margin-left: 5%;
+  margin-left: 2%;
 }
 .instructions{
   margin-right: 3%;
