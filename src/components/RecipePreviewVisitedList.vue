@@ -29,7 +29,7 @@ export default {
     };
   },
   mounted() {
-    this.updateRecipes(); //TODO:REMOVE COMMENT
+    this.updateRecipes();
   },
   methods: {
     async updateRecipes() {
@@ -37,16 +37,11 @@ export default {
         const response = await this.axios.get(
           process.env.VUE_APP_ROOT_API_KEY + "/users/visited",
           // "http://localhost:3000/users/visited",
-          { withCredentials: true }
-
         );
 
-        // console.log(response);
-        // const recipes = response.data.recipes;
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }

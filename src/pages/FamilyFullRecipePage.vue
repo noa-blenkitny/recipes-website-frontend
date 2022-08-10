@@ -13,6 +13,14 @@
                 <b-icon icon="clock"></b-icon>
                {{ recipe.readyInMinutes }} <span  style="font-size: 10px;">minutes</span></div>
               <div>
+                <img
+                src="../assets/dishchef.png"
+                class="dishimg"
+                />
+                {{recipe.servings}} <span  style="font-size: 10px;">servings</span>
+              </div>
+              
+              <div>
               <b-icon icon="hand-thumbs-up"></b-icon>   
               {{ recipe.aggregateLikes }} <span  style="font-size: 10px;">likes</span></div>
               <img
@@ -101,6 +109,7 @@ export default {
         extendedIngredients,
         aggregateLikes,
         readyInMinutes,
+        servings,
         image,
         title,
         vegan,
@@ -116,6 +125,7 @@ export default {
         _extendedIngredients,
         aggregateLikes,
         readyInMinutes,
+        servings,
         image,
         title,
         vegan,
@@ -150,9 +160,6 @@ font-size: 20px;
 .recipecol{
   margin-left: 5%;
 }
-/* .recipe-header{
-
-} */
 .visitedImg {
   width: 28px;
   height: 28px;
@@ -163,6 +170,10 @@ font-size: 20px;
 }
 .veganImg {
   width: 22px;
+  height: 28px;
+}
+.dishimg {
+  width: 28px;
   height: 28px;
 }
 .glutenfreeImg {

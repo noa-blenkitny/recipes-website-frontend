@@ -57,7 +57,7 @@ export default {
         else{
           this.bool_show_my_recipes = false;
         }
-        // console.log(this.recipes);
+        
       } catch (error) {
         console.log(error);
       }

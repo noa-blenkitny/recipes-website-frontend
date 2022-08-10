@@ -39,7 +39,6 @@
 
       <b-button
         type="submit"
-        variant="primary"
         class="mx-auto w-100 myloginbtn"
         >Login</b-button
       >

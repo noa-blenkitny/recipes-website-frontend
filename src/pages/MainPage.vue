@@ -60,7 +60,7 @@ export default {
 .randBtn{
   background-color: rgb(13, 84, 87);
   color: white;
-  border-radius: 20px;
+  border-radius: 6px;
   padding: 12px 28px;
   border: none;
   font-family: "Playfair Display", serif;

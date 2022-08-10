@@ -4,7 +4,7 @@
       no-body
       :title="recipe.title"
       img-top
-      class="mb-2"
+      class="mb-2 myrecipecard"
       style="max-width: 20rem;"
       tag="article"
     >
@@ -95,6 +95,13 @@ export default {
   margin: auto;
   width: 55%;
   padding-top: 10px;
+}
+.myrecipecard:hover{
+  box-shadow: 10px 10px 10px grey;
+  transition-duration: 100ms;
+}
+.myrecipecard:not(:hover){
+  transition-duration: 400ms;
 }
 
 </style>
