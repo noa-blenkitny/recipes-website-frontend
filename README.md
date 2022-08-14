@@ -2,6 +2,6 @@
 <br />
 This is a recipes website that we developed as part of Web development enviourmnets course.
 <br />
-We implemented the cilent side with Vue framework and the server side with Node.js.
+This is the frontend of the project that we implemented with Vue framework.
 <br />
 Hope you enjoy :)
