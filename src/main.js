@@ -91,8 +91,10 @@ const shared_data = {
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
+    localStorage.removeItem("recentSearch");
     this.username = undefined;
     sessionStorage.clear();
+    // localStorage.clear();
 
   },
 };

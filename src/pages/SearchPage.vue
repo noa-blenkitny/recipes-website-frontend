@@ -279,23 +279,26 @@ export default {
   methods: {
     async SearcgRecipes() {
       try {
-        let recentSearch = sessionStorage.getItem("recentSearch");
-        let recentSearchParams = {
-          text: this.$v.form.text.$model,
-          value_diet: this.value_diet,
-          value_cuisine: this.value_cuisine,
-          value_intolerance: this.value_intolerance,
-          value_sort: this.value_sort,
-          value_number: this.value_number,
-        };
-        if (recentSearch != null) {
-          sessionStorage.removeItem("recentSearch");
+        if (this.$root.store.username) {
+          let recentSearch = localStorage.getItem("recentSearch");
+          let recentSearchParams = {
+            text: this.$v.form.text.$model,
+            value_diet: this.value_diet,
+            value_cuisine: this.value_cuisine,
+            value_intolerance: this.value_intolerance,
+            value_sort: this.value_sort,
+            value_number: this.value_number,
+          };
+
+          if (recentSearch != null) {
+            localStorage.removeItem("recentSearch");
+          }
+          localStorage.setItem(
+            "recentSearch",
+            JSON.stringify(recentSearchParams)
+          );
+          this.hasRecentSearch = true;
         }
-        sessionStorage.setItem(
-          "recentSearch",
-          JSON.stringify(recentSearchParams)
-        );
-        this.hasRecentSearch = true;
         return await this.$children[9].updateRecipes();
       } catch {
         this.form.submitError = err.response.data.message;
@@ -315,7 +318,7 @@ export default {
     },
     showRecentSearch() {
       try {
-        let recentSearch = JSON.parse(sessionStorage.getItem("recentSearch"));
+        let recentSearch = JSON.parse(localStorage.getItem("recentSearch"));
         this.value_diet = recentSearch.value_diet;
         this.value_cuisine = recentSearch.value_cuisine;
         this.value_intolerance = recentSearch.value_intolerance;
@@ -328,13 +331,13 @@ export default {
     },
   },
   mounted() {
-    let recentSearch = sessionStorage.getItem("recentSearch");
+    let recentSearch = localStorage.getItem("recentSearch");
     if (recentSearch != null) {
       this.hasRecentSearch = true;
     } else {
       this.hasRecentSearch = false;
     }
-     //console.log(this.$children)
+    //console.log(this.$children)
   },
   validations: {
     form: {

@@ -1,10 +1,10 @@
 <template>
     <div id="about">
       <b-row class="myrow" no-gutters>
-      <b-col class="timmon" sm="5">
-        <img id="timmonpic" src="../assets/timmon.png">
+      <b-col class="timmon" sm="5" no-gutters>
+        <img id="timmonpic" src="../assets/timmon.png" >
         </b-col>
-      <b-col class="aboutbody">
+      <b-col class="aboutbody" no-gutters>
       <h1>About Us</h1>
       <p>
         We are two 3rd year Information System engineering sutdents in Ben
@@ -65,7 +65,7 @@ export default {};
 }
 #timmonpic{
   width: 60%;
-  height: 110%;
+  height: 100%;
   margin-left: 25%;
 }
 h1{
