@@ -5,7 +5,9 @@
         <b-navbar-brand
           style="font-family: 'Playfair Display', serif;
           color: rgb(235, 235, 235);"
-          >BGNB</b-navbar-brand
+          >
+          <img src="./assets/flowerIcon.png" id="flowerIcon">
+          BGNB</b-navbar-brand
         >
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
@@ -164,6 +166,13 @@ export default {
     border: none;
     color: rgb(235, 235, 235);
     font-size: medium
+}
+#flowerIcon
+{
+  height: 30px;
+  width: 50px;
+  margin-bottom: 3px;
+
 }
 
 // end of NAVBAR
